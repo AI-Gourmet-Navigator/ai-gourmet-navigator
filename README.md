@@ -66,3 +66,4 @@ style: everything related to styling
 refactor: code changes that neither fixes a bug or adds a feature
 test: everything related to testing
 chore: updating build tasks, package manager configs, etc
+```
