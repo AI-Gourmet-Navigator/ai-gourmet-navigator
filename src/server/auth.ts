@@ -55,8 +55,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
     GitHubProvider({
-      clientId: env.GITHUB_ID,
-      clientSecret: env.GITHUB_SECRET,
+      clientId: env.G_HUB_ID,
+      clientSecret: env.G_HUB_SECRET,
     }),
     FacebookProvider({
       clientId: env.FACEBOOK_CLIENT_ID,

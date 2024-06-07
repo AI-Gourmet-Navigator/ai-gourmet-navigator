@@ -21,8 +21,8 @@ jobs:
         env:
           DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
-          GITHUB_ID: ${{ secrets.GITHUB_ID }}
-          GITHUB_SECRET: ${{ secrets.GITHUB_SECRET }}
+          G_HUB_ID: ${{ secrets.G_HUB_ID }}
+          G_HUB_SECRET: ${{ secrets.G_HUB_SECRET }}
           FACEBOOK_CLIENT_ID: ${{ secrets.FACEBOOK_CLIENT_ID }}
           FACEBOOK_CLIENT_SECRET: ${{ secrets.FACEBOOK_CLIENT_SECRET }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
