@@ -1,13 +1,14 @@
-
 ## Ai Gourmet Navigator
 
 ## Members
+
 - https://github.com/Lada496
 - https://github.com/yuki-o1o5
 
 ## Feature
 
 ## Tech Stack
+
 - [Cohere](https://cohere.com/)
 - [Pinecone](https://www.pinecone.io/)
 - [Next.js](https://nextjs.org)
@@ -19,11 +20,12 @@
 - [PostgreSQL](https://www.postgresql.org/)
 - [Prisma](https://prisma.io)
 
-
 ## For development
 
 #### Storybook
+
 Start
+
 ```bash
 npm run storybook
 ```
@@ -31,17 +33,23 @@ npm run storybook
 #### Docker
 
 Run
+
 ```bash
 docker-compose up
 ```
+
 Down
+
 ```bash
 docker-compose down
 ```
+
 Rebuild
+
 ```bash
 docker-compose up --build
 ```
+
 #### Branch
 
 Follow the naming convention below.
@@ -68,4 +76,20 @@ style: everything related to styling
 refactor: code changes that neither fixes a bug or adds a feature
 test: everything related to testing
 chore: updating build tasks, package manager configs, etc
+```
+
+#### Storybook
+
+Follow the naming convention below.
+
+- For Pages
+
+```typescript
+title: "Pages/<Page Name>";
+```
+
+- For Components
+
+```typescript
+title: "Components/<Page Name>";
 ```
