@@ -57,3 +57,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.gm-style-iw.gm-style-iw-c {
+  min-width: 350px !important;
+  width: 350px;
+}
