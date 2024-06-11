@@ -1,6 +1,11 @@
 import '@/styles/globals.css'
+import { Hind } from 'next/font/google'
 
-import { GeistSans } from 'geist/font/sans'
+const hind = Hind({
+  weight: ['400', '500', '700'],
+  style: 'normal',
+  subsets: ['latin'],
+})
 
 export const metadata = {
   title: 'Create T3 App',
@@ -14,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en" className={hind.className}>
       <body>{children}</body>
     </html>
   )

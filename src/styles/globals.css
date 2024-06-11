@@ -58,6 +58,12 @@
   }
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Hind', sans-serif;
+}
+
 .gm-style-iw.gm-style-iw-c {
   min-width: 350px !important;
   width: 350px;
