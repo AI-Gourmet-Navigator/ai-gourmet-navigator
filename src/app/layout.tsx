@@ -1,3 +1,5 @@
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
 import '@/styles/globals.css'
 import { Hind } from 'next/font/google'
 
@@ -20,7 +22,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={hind.className}>
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main style={{ minHeight: 'calc(100vh - 96px)' }}>{children}</main>
+        <Footer />
+      </body>
     </html>
   )
 }
