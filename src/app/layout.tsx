@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en" className={hind.className}>
       <body>
         <Header />
-        <main style={{ minHeight: 'calc(100vh - 96px)' }}>{children}</main>
+        <main style={{ minHeight: 'calc(100vh - 88px)' }}>{children}</main>
         <Footer />
       </body>
     </html>

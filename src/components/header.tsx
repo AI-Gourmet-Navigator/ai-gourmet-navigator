@@ -14,7 +14,7 @@ export const Header = async () => {
   return (
     <header className="sticky top-0 z-10 flex h-12 items-center justify-between bg-white/60 px-4 lg:px-8">
       <Link href="/">AI Gourmet Navigator</Link>
-      <ul className="hidden items-center gap-3 sm:flex">
+      <ul className="hidden items-center gap-6 sm:flex">
         <li>
           <Link
             href={session ? '/favorite' : '/api/auth/signin'}
@@ -39,7 +39,9 @@ export const Header = async () => {
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>AI Gourmet Navigator</SheetTitle>
+              <SheetTitle>
+                <Link href="/">AI Gourmet Navigator</Link>
+              </SheetTitle>
               <ul className="flex flex-col gap-4">
                 <li className="pt-2">
                   <Link
