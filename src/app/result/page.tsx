@@ -2,7 +2,7 @@ import { Tab } from '../../components/tab'
 import { type Restaurants } from '../api/preference/route'
 import { env } from '@/env'
 export default async function Result() {
-  const result = await fetch(`${env.APP_URL}/api/preference/`, {
+  const result = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/preference/`, {
     method: 'POST',
     body: JSON.stringify({
       genre: 'Italian',

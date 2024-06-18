@@ -34,4 +34,4 @@ jobs:
           NEXT_PUBLIC_GOOGLE_MAP_API: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAP_API }}
           CO_API_KEY: ${{ secrets.CO_API_KEY }}
           PINECONE_KEY: ${{ secrets.PINECONE_KEY }}
-          APP_URL: ${{ secrets.APP_URL }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
