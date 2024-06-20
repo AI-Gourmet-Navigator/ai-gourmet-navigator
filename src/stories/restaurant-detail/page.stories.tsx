@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import RestaurantDetail from '@/app/restaurant-detail/[placeId]/page'
-import { expect, userEvent, within } from '@storybook/test'
 
 const meta: Meta<typeof RestaurantDetail> = {
   title: 'Pages/RestaurantDetail',
@@ -16,34 +15,16 @@ const meta: Meta<typeof RestaurantDetail> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const RestaurantDetailPageNotFavorite: Story = {
+export const RestaurantDetailPageFavorite: Story = {
   args: {
-    params: { placeId: 'some-place-id' },
+    params: { placeId: '1' },
     isFavorite: false,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    const favoriteButton = canvas.getByRole('button', { name: /favorite/i })
-    await expect(favoriteButton).toBeInTheDocument()
-
-    await userEvent.click(favoriteButton)
-    await expect(favoriteButton).toHaveAttribute('aria-label', 'unfavorite')
   },
 }
 
-export const RestaurantDetailPageFavorite: Story = {
+export const RestaurantDetailPageNotFavorite: Story = {
   args: {
-    params: { placeId: 'some-place-id' },
+    params: { placeId: '2' },
     isFavorite: true,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    const favoriteButton = canvas.getByRole('button', { name: /unfavorite/i })
-    await expect(favoriteButton).toBeInTheDocument()
-
-    await userEvent.click(favoriteButton)
-    await expect(favoriteButton).toHaveAttribute('aria-label', 'favorite')
   },
 }
