@@ -21,7 +21,7 @@ export function ReviewCard({
   const firstInitialOfAuthorName = authorName.substring(0, 1)
 
   return (
-    <div className="my-3 p-2">
+    <div className="mb-3 p-2">
       <div className="flex">
         <Avatar className="mr-3">
           <AvatarImage src={profileUrl} alt={authorName} />

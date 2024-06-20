@@ -1,11 +1,11 @@
-import { ImageCarousel } from '@/components/imageCarousel'
-import React from 'react'
-import { MOCK_RESTAURANT_DETAILS } from './mock'
-import { StarIcon, SewingPinFilledIcon, ClockIcon } from '@radix-ui/react-icons'
-import { Card } from '@/components/ui/card'
-import Image from 'next/image'
-import { icons } from './constants'
 import Link from 'next/link'
+import {
+  StarIcon,
+  SewingPinFilledIcon,
+  HeartFilledIcon,
+  HeartIcon,
+} from '@radix-ui/react-icons'
+import { ImageCarousel } from '@/components/imageCarousel'
 import { ReviewCard } from '@/components/review-card'
 import { Button } from '@/components/ui/button'
 import {
@@ -15,7 +15,13 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { ServiceItem } from '@/components/service-item'
+import { MOCK_RESTAURANT_DETAILS } from './mock'
 
+interface RestaurantDetail {
+  params: { placeId: string }
+  isFavorite: boolean
+}
 interface Review {
   profile_photo_url: string
   author_name: string
@@ -23,19 +29,37 @@ interface Review {
   text: string
   relative_time_description: string
 }
+interface RestaurantDetails {
+  id: string
+  name: string
+  location: { lat: number; lng: number }
+  rating: number
+  ratingsTotal: number
+  url: string
+  website: string
+  formatted_address: string
+  serves_vegetarian_food: boolean
+  takeout: boolean
+  delivery: boolean
+  dine_in: boolean
+  wheelchair_accessible_entrance: boolean
+  reservable: boolean
+  price_level: number
+  opening_hours: { open_now: boolean; weekday_text: string[] }
+  photos: { imageUrl: string }[]
+  reviews: Review[]
+}
 
 export default function RestaurantDetail({
   params,
-}: {
-  params: { placeId: string }
-}) {
+  isFavorite,
+}: RestaurantDetail) {
   const {
     id,
     name,
     location,
     rating,
     ratingsTotal,
-    isFavorite,
     url,
     website,
     formatted_address,
@@ -49,7 +73,7 @@ export default function RestaurantDetail({
     opening_hours,
     photos,
     reviews,
-  } = MOCK_RESTAURANT_DETAILS
+  }: RestaurantDetails = MOCK_RESTAURANT_DETAILS
 
   const topThreeReviews = reviews.slice(0, 3)
   const scrollableReviews: Review[] = Array.from(reviews)
@@ -57,18 +81,23 @@ export default function RestaurantDetail({
   return (
     <>
       <div className="flex w-full flex-col items-center">
-        <ImageCarousel />
+        <ImageCarousel photos={photos} />
       </div>
-      <div className="px-6">
-        <Link href={website} target="_blank" rel="noopener noreferrer">
-          <h2 className="scroll-m-20 pb-4 text-3xl tracking-tight first:mt-0">
-            {name}
-          </h2>
-        </Link>
+      <div className="px-3 pb-8 sm:px-6">
+        <div className="flex justify-between">
+          <Link href={website} target="_blank" rel="noopener noreferrer">
+            <h2 className="scroll-m-20 pb-4 text-3xl tracking-tight first:mt-0">
+              {name}
+            </h2>
+          </Link>
+          <Button variant="ghost">
+            {isFavorite ? <HeartFilledIcon /> : <HeartIcon />}
+          </Button>
+        </div>
         <div className="flex flex-col sm:flex-row sm:items-center">
           <div className="mr-4 flex items-center gap-1">
             <StarIcon />
-            <h5 className="scroll-m-20 text-lg tracking-tight">{rating}</h5>
+            <p className="leading-7">{rating}</p>
             <p className="leading-7">•</p>
             <p className="leading-7">{ratingsTotal} reviews</p>
           </div>
@@ -79,45 +108,34 @@ export default function RestaurantDetail({
             </div>
           </Link>
         </div>
-        <div className="my-6 mt-4 grid grid-cols-2 gap-1 sm:grid-cols-3 sm:gap-3">
-          {icons.map((icon) => (
-            <Card
-              className="flex flex-col items-center justify-center py-2"
-              key={icon.name}
-            >
-              <div className="flex flex-col flex-wrap items-center gap-1 sm:flex-row">
-                <Image
-                  src={icon.imageUrl}
-                  width={25}
-                  height={25}
-                  alt={icon.name}
-                />
-                <p className="text-sm leading-7">{icon.name}</p>
-              </div>
-            </Card>
-          ))}
-        </div>
-        <div>
-          <div className="flex items-center">
-            <ClockIcon className="mr-2 h-6 w-6" />
-            <p>Schedule</p>
-          </div>
-          {opening_hours.weekday_text.map((day) => (
-            <p className="leading-7" key={day}>
-              {day}
-            </p>
-          ))}
-        </div>
-        <p className="leading-7">{serves_vegetarian_food}</p>
-        <p className="leading-7">{takeout}</p>
-        <p className="leading-7">{delivery}</p>
-        <p className="leading-7">{dine_in}</p>
-        <p className="leading-7">{wheelchair_accessible_entrance}</p>
-        <p className="leading-7">{reservable}</p>
-        <p className="leading-7">{dine_in}</p>
-        <p className="leading-7">{wheelchair_accessible_entrance}</p>
-        {/* <div>hello: {params.placeId}</div> */}
 
+        <hr className="mt-6" />
+        <h3 className="mt-4 scroll-m-20 text-2xl tracking-tight">
+          What this place offers
+        </h3>
+        <ServiceItem
+          takeout={takeout}
+          delivery={delivery}
+          dine_in={dine_in}
+          serves_vegetarian_food={serves_vegetarian_food}
+          wheelchair_accessible_entrance={wheelchair_accessible_entrance}
+          reservable={reservable}
+          price_level={price_level}
+          opening_hours={opening_hours}
+        />
+
+        <hr className="mt-6" />
+        <h3 className="my-4 scroll-m-20 text-2xl tracking-tight">Schedule</h3>
+        <ul>
+          {opening_hours.weekday_text.map((day) => (
+            <li className="pl-2 leading-7" key={day}>
+              • {day}
+            </li>
+          ))}
+        </ul>
+
+        <hr className="mt-6" />
+        <h3 className="my-4 scroll-m-20 text-2xl tracking-tight">Reviews</h3>
         {topThreeReviews.map((eachRating, index) => (
           <ReviewCard
             profileUrl={eachRating.profile_photo_url}
@@ -128,6 +146,7 @@ export default function RestaurantDetail({
             key={index}
           />
         ))}
+
         <Dialog>
           <div className="flex w-full justify-center">
             <DialogTrigger asChild>
@@ -153,6 +172,7 @@ export default function RestaurantDetail({
           </DialogContent>
         </Dialog>
       </div>
+      {/* <div>hello: {params.placeId}</div> */}
     </>
   )
 }

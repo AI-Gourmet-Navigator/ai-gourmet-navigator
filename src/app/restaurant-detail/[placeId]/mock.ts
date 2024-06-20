@@ -12,9 +12,9 @@ export const MOCK_RESTAURANT_DETAILS = {
   formatted_address: '3772 W 10th Ave, Vancouver, BC V6R 2G4, Canada',
   serves_vegetarian_food: true,
   takeout: true,
-  delivery: true,
+  delivery: false,
   dine_in: true,
-  wheelchair_accessible_entrance: true,
+  wheelchair_accessible_entrance: false,
   reservable: true,
   price_level: 2,
   opening_hours: {
@@ -32,6 +32,12 @@ export const MOCK_RESTAURANT_DETAILS = {
   photos: [
     {
       imageUrl: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=320&photo_reference=AUGGfZmTsd7W6yo6YCPkOqxfNdvPR-GdfGDH6zlWJqzbouMQOLO6LlpUYHkLW6bCKR-omQ4rO49_ETKflXH-V0Xu5c7DfUpItE03F69SPzqzDEWt4lmTJzKBRwN_qpyfRiJVRtOjbS2Xcy5eXGtGTNUYeWrhIYZTYK4_IxEAJ0b0rn-wKnSD&key=${env.NEXT_PUBLIC_GOOGLE_MAP_API}`,
+    },
+    {
+      imageUrl: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=320&photo_reference=AUGGfZlBfA5d809W42UY393ABVO6eYUpp_VjA9iICbtD7L4y3jzGMaJz2Ubha3gVmLQK-AOOk61IFk69ptiK-AEU2Z2HC7hc68dwtwKa6LSKQWIL7t6wki8DaPK_3msLnuEDY200g7tp2SavAi1Qx0G5zvYbMABk_X4UvJuXzkGRgtm9SnMr&key=${env.NEXT_PUBLIC_GOOGLE_MAP_API}`,
+    },
+    {
+      imageUrl: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=320&photo_reference=AUGGfZlk6JxFqrN4AnO-OdBHdjWa6oJyk7FQ5c8IQURlmnWhXB0QZH_Q06N1v-ETjGeYp-5HHeNNhGQejWrcBh5RtY0IU0crYVPGBlNqDPcEhA95B-LxiBfWMwhe2TBbSIpkToldFuJN6h2a19o5IzDjEynsP6Zodr8FdyeA_IJbkMfZe8EO&key=${env.NEXT_PUBLIC_GOOGLE_MAP_API}`,
     },
     {
       imageUrl: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=320&photo_reference=AUGGfZlBfA5d809W42UY393ABVO6eYUpp_VjA9iICbtD7L4y3jzGMaJz2Ubha3gVmLQK-AOOk61IFk69ptiK-AEU2Z2HC7hc68dwtwKa6LSKQWIL7t6wki8DaPK_3msLnuEDY200g7tp2SavAi1Qx0G5zvYbMABk_X4UvJuXzkGRgtm9SnMr&key=${env.NEXT_PUBLIC_GOOGLE_MAP_API}`,

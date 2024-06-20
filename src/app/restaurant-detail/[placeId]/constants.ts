@@ -1,5 +1,17 @@
 export const icons = [
   {
+    imageUrl: '/icons/open.png',
+    name: 'Open now',
+  },
+  {
+    imageUrl: '/icons/close.png',
+    name: 'Close now',
+  },
+  {
+    imageUrl: '/icons/pricelevel.png',
+    name: 'Price level',
+  },
+  {
     imageUrl: '/icons/dinein.png',
     name: 'Dine in',
   },
@@ -22,13 +34,5 @@ export const icons = [
   {
     imageUrl: '/icons/reservation.png',
     name: 'Reservation',
-  },
-  {
-    imageUrl: '/icons/pricelevel.png',
-    name: 'Price level',
-  },
-  {
-    imageUrl: '/icons/open.png',
-    name: 'Open now',
   },
 ] as const
