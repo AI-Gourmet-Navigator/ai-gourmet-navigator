@@ -1,6 +1,5 @@
-import { icons } from '@/app/restaurant-detail/[placeId]/constants'
 import Image from 'next/image'
-import React from 'react'
+import { icons } from '@/app/restaurant-detail/[placeId]/constants'
 
 interface ServiceItem {
   takeout: boolean

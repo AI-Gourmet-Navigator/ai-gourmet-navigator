@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import {
@@ -9,7 +10,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from '@/components/ui/carousel'
-import Image from 'next/image'
+
 interface ImageCarousel {
   photos: {
     imageUrl: string

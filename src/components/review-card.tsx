@@ -1,5 +1,4 @@
 'use client'
-
 import { StarIcon } from '@radix-ui/react-icons'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
@@ -19,7 +18,6 @@ export function ReviewCard({
   time,
 }: ReviewCard) {
   const firstInitialOfAuthorName = authorName.substring(0, 1)
-
   return (
     <div className="mb-3 p-2">
       <div className="flex">
