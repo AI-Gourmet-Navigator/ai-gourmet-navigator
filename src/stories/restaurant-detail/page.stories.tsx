@@ -16,7 +16,7 @@ const meta: Meta<typeof RestaurantDetail> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const RestaurantDetailPage: Story = {
+export const RestaurantDetailPageNotFavorite: Story = {
   args: {
     params: { placeId: 'some-place-id' },
     isFavorite: false,
@@ -28,6 +28,22 @@ export const RestaurantDetailPage: Story = {
     await expect(favoriteButton).toBeInTheDocument()
 
     await userEvent.click(favoriteButton)
-    await expect(favoriteButton).toHaveClass('favorite')
+    await expect(favoriteButton).toHaveAttribute('aria-label', 'unfavorite')
+  },
+}
+
+export const RestaurantDetailPageFavorite: Story = {
+  args: {
+    params: { placeId: 'some-place-id' },
+    isFavorite: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    const favoriteButton = canvas.getByRole('button', { name: /unfavorite/i })
+    await expect(favoriteButton).toBeInTheDocument()
+
+    await userEvent.click(favoriteButton)
+    await expect(favoriteButton).toHaveAttribute('aria-label', 'favorite')
   },
 }

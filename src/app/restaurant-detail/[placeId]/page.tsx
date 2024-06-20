@@ -90,7 +90,10 @@ export default function RestaurantDetail({
               {name}
             </h2>
           </Link>
-          <Button variant="ghost">
+          <Button
+            variant="ghost"
+            aria-label={isFavorite ? 'unfavorite' : 'favorite'}
+          >
             {isFavorite ? <HeartFilledIcon /> : <HeartIcon />}
           </Button>
         </div>
