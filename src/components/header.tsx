@@ -23,7 +23,7 @@ export const Header = () => {
   const { data: session } = useSession()
   const { setTheme } = useTheme()
   return (
-    <header className="sticky top-0 z-10 flex h-12 items-center justify-between px-4 lg:px-8">
+    <header className="sticky top-0 z-10 mx-auto flex h-12 max-w-7xl items-center justify-between bg-[hsl(var(--background))] px-4 text-[hsl(var(--foreground))] dark:bg-[hsl(var(--background))] dark:text-[hsl(var(--foreground))] lg:px-8">
       <Link href="/">AI Gourmet Navigator</Link>
       <div className="flex items-center">
         <ul className="mr-6 hidden gap-6 sm:flex">

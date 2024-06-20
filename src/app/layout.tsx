@@ -33,7 +33,12 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <main style={{ minHeight: 'calc(100vh - 88px)' }}>{children}</main>
+            <main
+              style={{ minHeight: 'calc(100vh - 88px)' }}
+              className="mx-auto max-w-7xl"
+            >
+              {children}
+            </main>
             <Footer />
           </ThemeProvider>
         </NextAuthProvider>
