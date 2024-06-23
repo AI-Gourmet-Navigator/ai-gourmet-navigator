@@ -17,6 +17,7 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['../public'],
+
   env: (config) => ({
     ...config,
     DATABASE_URL: process.env.DATABASE_URL || '',
@@ -32,6 +33,8 @@ const config: StorybookConfig = {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || '',
     NEXT_PUBLIC_GOOGLE_MAP_API: process.env.NEXT_PUBLIC_GOOGLE_MAP_API || '',
   }),
+  features: {
+    experimentalRSC: true,
+  },
 }
-
 export default config
