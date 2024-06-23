@@ -1,4 +1,4 @@
-name: "Chromatic"
+name: 'Chromatic'
 
 on: push
 
@@ -32,3 +32,6 @@ jobs:
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           GOOGLE_MAP_API: ${{ secrets.GOOGLE_MAP_API }}
           NEXT_PUBLIC_GOOGLE_MAP_API: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAP_API }}
+          CO_API_KEY: ${{ secrets.CO_API_KEY }}
+          PINECONE_KEY: ${{ secrets.PINECONE_KEY }}
+          APP_URL: ${{ secrets.APP_URL }}
