@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Map } from "@/components/map";
+import type { Meta, StoryObj } from '@storybook/react'
+import { Map } from '@/components/map'
 
 const meta = {
-  title: "Components/Map",
+  title: 'Components/Map',
   component: Map,
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
   },
-} satisfies Meta<typeof Map>;
+} satisfies Meta<typeof Map>
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
-export const MapComponent: Story = {};
+export const MapComponent: Story = {}
