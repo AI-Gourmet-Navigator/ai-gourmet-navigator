@@ -1,7 +1,7 @@
-import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { tabs, defaultValue } from "../app/result/constants";
-import { Map } from "./map";
+import { Card } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { tabs, defaultValue } from '../app/result/constants'
+import { Map } from './map'
 
 export function Tab() {
   return (
@@ -26,5 +26,5 @@ export function Tab() {
         </Card>
       </TabsContent>
     </Tabs>
-  );
+  )
 }

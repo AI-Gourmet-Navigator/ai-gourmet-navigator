@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { InfoWindowCard } from "@/components/infowindow-card";
+import type { Meta, StoryObj } from '@storybook/react'
+import { InfoWindowCard } from '@/components/infowindow-card'
 
 const meta = {
-  title: "Components/InfoWindowCard",
+  title: 'Components/InfoWindowCard',
   component: InfoWindowCard,
-} satisfies Meta<typeof InfoWindowCard>;
+} satisfies Meta<typeof InfoWindowCard>
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Favorite: Story = {
   args: {
@@ -18,7 +18,7 @@ export const Favorite: Story = {
     ratingsTotal: 382,
     isFavorite: true,
   },
-};
+}
 
 export const NotFavorite: Story = {
   args: {
@@ -28,4 +28,4 @@ export const NotFavorite: Story = {
     ratingsTotal: 382,
     isFavorite: false,
   },
-};
+}
