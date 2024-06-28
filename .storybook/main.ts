@@ -32,5 +32,8 @@ const config: StorybookConfig = {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || '',
     NEXT_PUBLIC_GOOGLE_MAP_API: process.env.NEXT_PUBLIC_GOOGLE_MAP_API || '',
   }),
+  features: {
+    experimentalRSC: true,
+  },
 }
 export default config

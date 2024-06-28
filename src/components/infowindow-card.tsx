@@ -1,14 +1,14 @@
-import { Card, CardContent, CardTitle, CardDescription } from "./ui/card";
-import { Button } from "./ui/button";
-import Image from "next/image";
-import { HeartIcon, HeartFilledIcon, StarIcon } from "@radix-ui/react-icons";
+import { Card, CardContent, CardTitle, CardDescription } from './ui/card'
+import { Button } from './ui/button'
+import Image from 'next/image'
+import { HeartIcon, HeartFilledIcon, StarIcon } from '@radix-ui/react-icons'
 
 interface InfoWindowCard {
-  name: string;
-  imageUrl: string;
-  rating: number;
-  ratingsTotal: number;
-  isFavorite: boolean;
+  name: string
+  imageUrl: string
+  rating: number
+  ratingsTotal: number
+  isFavorite: boolean
 }
 
 export function InfoWindowCard({
@@ -40,5 +40,5 @@ export function InfoWindowCard({
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }
