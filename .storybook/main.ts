@@ -17,7 +17,6 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['../public'],
-
   env: (config) => ({
     ...config,
     DATABASE_URL: process.env.DATABASE_URL || '',
