@@ -28,7 +28,7 @@ export function Map() {
               id,
               location,
               name,
-              imageUrl,
+              imageUrls,
               rating,
               ratingsTotal,
               isFavorite,
@@ -37,7 +37,7 @@ export function Map() {
                 key={id}
                 location={location}
                 name={name}
-                imageUrl={imageUrl}
+                imageUrls={imageUrls}
                 rating={rating}
                 ratingsTotal={ratingsTotal}
                 isFavorite={isFavorite}
