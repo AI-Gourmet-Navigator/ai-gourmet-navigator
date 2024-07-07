@@ -49,11 +49,12 @@ export function ImageCarousel({ photos }: ImageCarousel) {
         <div className="mb-8 flex items-center justify-center">
           <Image
             src={photos[0]?.imageUrl ?? '/default-image.png'}
-            alt="Slide 1"
+            alt={`${photos[0]?.imageUrl}`}
             className="h-[320px] w-[640px] object-cover"
             sizes="100vw"
             width={0}
             height={0}
+            priority
           />
         </div>
       ) : (
@@ -74,7 +75,7 @@ export function ImageCarousel({ photos }: ImageCarousel) {
                     <div className="flex items-center justify-center">
                       <Image
                         src={photo.imageUrl}
-                        alt={`Slide ${index + 1}`}
+                        alt={`${photo.imageUrl}-${index}`}
                         className="h-[320px] w-[640px] object-cover"
                         sizes="100vw"
                         width={0}
