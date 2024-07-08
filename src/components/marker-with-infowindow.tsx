@@ -17,6 +17,7 @@ interface MarkerWithInfoWindowProps {
   rating: number
   ratingsTotal: number
   isFavorite: boolean
+  placeId: string
 }
 
 export function MarkerWithInfoWindow({

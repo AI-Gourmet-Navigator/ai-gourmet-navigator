@@ -1,8 +1,9 @@
 import { Card, CardContent, CardTitle, CardDescription } from './ui/card'
-import { Button } from './ui/button'
+import { FavoriteButton } from './favorite-button'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { HeartIcon, HeartFilledIcon, StarIcon } from '@radix-ui/react-icons'
-import { ImageCarousel } from './imageCarousel'
+import { StarIcon } from '@radix-ui/react-icons'
+
 import {
   Carousel,
   CarouselContent,
@@ -17,6 +18,7 @@ interface InfoWindowCard {
   rating: number
   ratingsTotal: number
   isFavorite: boolean
+  placeId: string
 }
 
 export function InfoWindowCard({
@@ -25,7 +27,9 @@ export function InfoWindowCard({
   rating,
   ratingsTotal,
   isFavorite,
+  placeId,
 }: InfoWindowCard) {
+  const { status } = useSession()
   return (
     <Card className="w-80">
       <Carousel className="w-full">
@@ -51,9 +55,9 @@ export function InfoWindowCard({
       <CardContent>
         <div className="flex items-center justify-between">
           <CardTitle>{name}</CardTitle>
-          <Button variant="ghost">
-            {isFavorite ? <HeartFilledIcon /> : <HeartIcon />}
-          </Button>
+          {status === 'authenticated' && (
+            <FavoriteButton isFavorite={isFavorite} placeId={placeId} />
+          )}
         </div>
         <div className="flex items-center">
           <StarIcon />

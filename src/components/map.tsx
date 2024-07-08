@@ -35,6 +35,7 @@ export function Map() {
             }) => (
               <MarkerWithInfoWindow
                 key={id}
+                placeId={id}
                 location={location}
                 name={name}
                 imageUrls={imageUrls}
