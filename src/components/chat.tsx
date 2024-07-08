@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { ChatContainer } from './chatContainer'
 import { ChatInput } from './chatInput'
 import { USER_ROLE } from '@/app/result/constants'
+import { Button } from './ui/button'
+import { type SchemaKeys, schemas } from '@/constants/validation'
 
 export interface MessageOb {
   type: string
@@ -45,6 +47,10 @@ const questionList: MessageOb[] = [
   // },
 ]
 
+function isSchemaKey(key: string): key is SchemaKeys {
+  return key in schemas
+}
+
 export function Chat() {
   const initialChat: MessageOb = {
     type: 'genre',
@@ -54,18 +60,39 @@ export function Chat() {
   const [chats, setChats] = useState<MessageOb[]>([
     questionList[0] ?? initialChat,
   ])
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [showInput, setShowInput] = useState(true)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
+  const [showInput, setShowInput] = useState<boolean>(true)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const handleSubmit = async (message: MessageOb) => {
     const currentQuestion = questionList[currentQuestionIndex]
     if (!currentQuestion) return
+
+    if (!isSchemaKey(currentQuestion.type)) {
+      setErrorMessage('Invalid question type')
+      return
+    }
+
+    const schema = schemas[currentQuestion.type]
+    const result = schema.safeParse(message.content)
+
+    if (!result.success) {
+      const error = result.error.errors[0]
+      if (error) {
+        setErrorMessage(error.message)
+      } else {
+        setErrorMessage('Invalid input')
+      }
+      return
+    }
+
     const answer: MessageOb = {
       type: currentQuestion.type,
       role: USER_ROLE.user,
       content: message.content,
     }
     setChats((prev) => [...prev, answer])
+    setErrorMessage(null)
 
     const nextQuestionIndex = currentQuestionIndex + 1
     if (nextQuestionIndex < questionList.length) {
@@ -92,12 +119,15 @@ export function Chat() {
           />
         )
       })}
+
       {showInput && (
         <ChatInput
           onSubmit={handleSubmit}
           currentQuestionType={currentQuestionType}
         />
       )}
+      {!showInput && <Button>Search</Button>}
+      {errorMessage && <div>{errorMessage}</div>}
     </>
   )
 }
