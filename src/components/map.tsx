@@ -34,7 +34,7 @@ export function Map() {
               isFavorite,
             }) => (
               <MarkerWithInfoWindow
-                key={id}
+                key={`${id}-map`}
                 placeId={id}
                 location={location}
                 name={name}
@@ -42,6 +42,7 @@ export function Map() {
                 rating={rating}
                 ratingsTotal={ratingsTotal}
                 isFavorite={isFavorite}
+                isMap
               />
             ),
           )}

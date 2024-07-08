@@ -12,12 +12,13 @@ interface MarkerWithInfoWindowProps {
     lat: number
     lng: number
   }
+  placeId: string
   name: string
   imageUrls: string[]
   rating: number
   ratingsTotal: number
   isFavorite: boolean
-  placeId: string
+  isMap: boolean
 }
 
 export function MarkerWithInfoWindow({
