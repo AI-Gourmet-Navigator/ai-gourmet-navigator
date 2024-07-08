@@ -2,38 +2,39 @@
 import { useState } from 'react'
 import { ChatContainer } from './chatContainer'
 import { ChatInput } from './chatInput'
+import { USER_ROLE } from '@/app/result/constants'
 
-export interface ChatOb {
+export interface MessageOb {
   type: string
   role: string
   content: string
 }
 
-const questionList: ChatOb[] = [
+const questionList: MessageOb[] = [
   {
     type: 'genre',
-    role: 'app',
+    role: USER_ROLE.app,
     content: 'What type of cuisine or genre of food are you craving for?',
   },
   {
     type: 'atmosphere',
-    role: 'app',
+    role: USER_ROLE.app,
     content: 'Can you describe the atmosphere or ambiance of the restaurant?',
   },
   {
     type: 'rate',
-    role: 'app',
+    role: USER_ROLE.app,
     content: 'What rating should the restaurant have to be ideal?',
   },
   {
     type: 'numberOfRatings',
-    role: 'app',
+    role: USER_ROLE.app,
     content:
       'How many customer reviews should the restaurant have to be ideal?',
   },
   {
     type: 'placeLevel',
-    role: 'app',
+    role: USER_ROLE.app,
     content:
       'What is the place level of the restaurant on a scale from 1 to 5?',
   },
@@ -45,16 +46,26 @@ const questionList: ChatOb[] = [
 ]
 
 export function Chat() {
-  const initialChat: ChatOb = {
+  const initialChat: MessageOb = {
     type: 'genre',
-    role: 'app',
+    role: USER_ROLE.app,
     content: 'What type of cuisine or genre of food are you craving for?',
   }
-  const [chats, setChats] = useState<ChatOb[]>([questionList[0] ?? initialChat])
+  const [chats, setChats] = useState<MessageOb[]>([
+    questionList[0] ?? initialChat,
+  ])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [showInput, setShowInput] = useState(true)
 
-  const handleSubmit = async (message: ChatOb) => {
-    setChats((prev) => [...prev, message])
+  const handleSubmit = async (message: MessageOb) => {
+    const currentQuestion = questionList[currentQuestionIndex]
+    if (!currentQuestion) return
+    const answer: MessageOb = {
+      type: currentQuestion.type,
+      role: USER_ROLE.user,
+      content: message.content,
+    }
+    setChats((prev) => [...prev, answer])
 
     const nextQuestionIndex = currentQuestionIndex + 1
     if (nextQuestionIndex < questionList.length) {
@@ -62,9 +73,12 @@ export function Chat() {
       if (nextQuestion) {
         setChats((prev) => [...prev, nextQuestion])
         setCurrentQuestionIndex(nextQuestionIndex)
-      }
+      } else setShowInput(false)
+    } else {
+      setShowInput(false)
     }
   }
+  const currentQuestionType = questionList[currentQuestionIndex]?.type ?? ''
 
   return (
     <>
@@ -78,7 +92,12 @@ export function Chat() {
           />
         )
       })}
-      <ChatInput onSubmit={handleSubmit} />
+      {showInput && (
+        <ChatInput
+          onSubmit={handleSubmit}
+          currentQuestionType={currentQuestionType}
+        />
+      )}
     </>
   )
 }

@@ -1,15 +1,17 @@
 'use client'
-import { type ChatOb } from './chat'
+import { USER_ROLE } from '@/app/result/constants'
+import { type MessageOb } from './chat'
 import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
 import { PaperPlaneIcon } from '@radix-ui/react-icons'
 import { useRef } from 'react'
 
-type ChatInputProps = {
-  onSubmit: (message: ChatOb) => void
+interface ChatInputProps {
+  onSubmit: (message: MessageOb) => void
+  currentQuestionType: string
 }
 
-export function ChatInput({ onSubmit }: ChatInputProps) {
+export function ChatInput({ onSubmit, currentQuestionType }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,8 +20,8 @@ export function ChatInput({ onSubmit }: ChatInputProps) {
 
     if (value) {
       onSubmit({
-        type: 'response',
-        role: 'user',
+        type: currentQuestionType,
+        role: USER_ROLE.user,
         content: value,
       })
 
@@ -41,8 +43,7 @@ export function ChatInput({ onSubmit }: ChatInputProps) {
       >
         <Textarea
           ref={textareaRef}
-          className="max-h-52 resize-none px-3 py-2 sm:ml-4 md:ml-8 lg:ml-20"
-          style={{ height: '40px', overflowY: 'hidden' }}
+          className="max-h-52 resize-none px-3 py-[7px] sm:ml-4 md:ml-8 lg:ml-20"
         />
         <Button className="px-3 sm:mr-4 sm:px-4 md:mr-8 lg:mr-20" type="submit">
           <PaperPlaneIcon />
