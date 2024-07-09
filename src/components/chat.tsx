@@ -119,15 +119,18 @@ export function Chat() {
           />
         )
       })}
-
-      {showInput && (
-        <ChatInput
-          onSubmit={handleSubmit}
-          currentQuestionType={currentQuestionType}
-        />
-      )}
-      {!showInput && <Button>Search</Button>}
-      {errorMessage && <div>{errorMessage}</div>}
+      <div className="sticky bottom-0 w-full">
+        {showInput && (
+          <ChatInput
+            onSubmit={handleSubmit}
+            currentQuestionType={currentQuestionType}
+          />
+        )}
+        {!showInput && <Button>Search</Button>}
+        {errorMessage && (
+          <div className="mt-2 flex w-full justify-center">{errorMessage}</div>
+        )}
+      </div>
     </>
   )
 }
