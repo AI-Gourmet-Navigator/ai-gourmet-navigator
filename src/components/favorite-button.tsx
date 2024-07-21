@@ -22,6 +22,11 @@ export function FavoriteButton({
     })
     router.refresh()
   }
+
+  function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    event.stopPropagation()
+  }
+
   const [optimisticIsFavorite, addOptimisticFavorite] = useOptimistic(
     isFavorite,
     (state) => !state,
@@ -29,7 +34,7 @@ export function FavoriteButton({
   return (
     <form action={formAction} ref={formRef}>
       <input type="hidden" value={placeId} name="placeId" />
-      <Button variant="ghost" type="submit">
+      <Button variant="ghost" type="submit" onClick={handleClick}>
         {optimisticIsFavorite ? <HeartFilledIcon /> : <HeartIcon />}
       </Button>
     </form>
