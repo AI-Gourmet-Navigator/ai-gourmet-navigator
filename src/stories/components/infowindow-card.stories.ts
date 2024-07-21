@@ -21,6 +21,8 @@ export const Favorite: Story = {
     rating: 4.4,
     ratingsTotal: 382,
     isFavorite: true,
+    isMap: false,
+    placeId: '1',
   },
 }
 
@@ -35,6 +37,8 @@ export const NotFavorite: Story = {
     rating: 4.4,
     ratingsTotal: 382,
     isFavorite: false,
+    isMap: false,
+    placeId: '1',
   },
 }
 
@@ -45,5 +49,39 @@ export const SingleImage: Story = {
     rating: 4.4,
     ratingsTotal: 382,
     isFavorite: false,
+    isMap: false,
+    placeId: '1',
+  },
+}
+
+export const MapMode: Story = {
+  args: {
+    name: "Farmer's Apprentice Restaurant",
+    imageUrls: [
+      `https://loremflickr.com/640/360`,
+      `https://loremflickr.com/640/360`,
+      `https://loremflickr.com/640/360`,
+    ],
+    rating: 4.4,
+    ratingsTotal: 382,
+    isFavorite: false,
+    isMap: true,
+    placeId: '1',
+  },
+}
+
+export const mapModeWithFav: Story = {
+  args: {
+    name: "Farmer's Apprentice Restaurant",
+    imageUrls: [
+      `https://loremflickr.com/640/360`,
+      `https://loremflickr.com/640/360`,
+      `https://loremflickr.com/640/360`,
+    ],
+    rating: 4.4,
+    ratingsTotal: 382,
+    isFavorite: true,
+    isMap: true,
+    placeId: '1',
   },
 }
