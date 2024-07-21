@@ -11,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+
 import Link from 'next/link'
 
 interface InfoWindowCard {

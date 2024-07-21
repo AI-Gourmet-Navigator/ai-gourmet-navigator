@@ -4,7 +4,22 @@ import { tabs, defaultValue } from '../app/result/constants'
 import { Map } from './map'
 import { List } from './list'
 
-export function Tab() {
+interface Location {
+  lat: number
+  lng: number
+}
+
+export interface Restaurant {
+  id: string
+  name: string
+  location: Location
+  imageUrls: string[]
+  rating: number
+  ratingsTotal: number
+  isFavorite: boolean
+}
+
+export function Tab({ restaurants }: { restaurants: Restaurant[] }) {
   return (
     <Tabs defaultValue={defaultValue} className="w-full p-3">
       <TabsList className="grid w-full grid-cols-2">
@@ -19,11 +34,11 @@ export function Tab() {
         ))}
       </TabsList>
       <TabsContent value={tabs[0].value} data-testid="list-tab">
-        <List />
+        <List restaurants={restaurants} />
       </TabsContent>
       <TabsContent value={tabs[1].value} data-testid="map-tab">
         <Card>
-          <Map />
+          <Map restaurants={restaurants} />
         </Card>
       </TabsContent>
     </Tabs>

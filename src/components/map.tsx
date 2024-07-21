@@ -2,10 +2,11 @@
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps'
 import { env } from '@/env'
 import { center } from '../app/result/constants'
-import { MOCK_RESTAURANTS } from '@/app/result/mock'
-import { MarkerWithInfoWindow } from './marker-with-infowindow'
 
-export function Map() {
+import { MarkerWithInfoWindow } from './marker-with-infowindow'
+import { type Restaurant } from './tab'
+
+export function Map({ restaurants }: { restaurants: Restaurant[] }) {
   return (
     <div
       style={{
@@ -23,7 +24,7 @@ export function Map() {
           gestureHandling={'greedy'}
           disableDefaultUI={true}
         >
-          {MOCK_RESTAURANTS.map(
+          {restaurants.map(
             ({
               id,
               location,

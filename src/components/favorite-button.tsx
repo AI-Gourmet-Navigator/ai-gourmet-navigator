@@ -1,6 +1,7 @@
 import { useOptimistic, useRef } from 'react'
 import { Button } from './ui/button'
 import { HeartIcon, HeartFilledIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation'
 
 export function FavoriteButton({
   isFavorite,
@@ -9,6 +10,7 @@ export function FavoriteButton({
   isFavorite: boolean
   placeId: string
 }) {
+  const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
   async function formAction(formData: FormData) {
     addOptimisticFavorite(!isFavorite)
@@ -18,6 +20,7 @@ export function FavoriteButton({
       method: 'POST',
       body: JSON.stringify({ placeId }),
     })
+    router.refresh()
   }
   const [optimisticIsFavorite, addOptimisticFavorite] = useOptimistic(
     isFavorite,

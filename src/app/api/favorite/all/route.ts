@@ -1,4 +1,6 @@
 import { db } from '@/server/db'
+import { fetchPlaceDetails } from '@/lib/google-map'
+import { getImageUrls } from '../../../../lib/get-image-urls'
 
 export async function GET(req: Request) {
   try {
@@ -18,8 +20,23 @@ export async function GET(req: Request) {
       },
     })
 
+    const favRestaurants = []
+
+    for (const favorite of favorites) {
+      const restaurant = await fetchPlaceDetails(favorite.placeId)
+      favRestaurants.push({
+        id: favorite.placeId,
+        name: restaurant?.result.name,
+        location: restaurant?.result.geometry.location,
+        imageUrls: getImageUrls(restaurant?.result.photos),
+        rating: restaurant?.result.rating,
+        ratingsTotal: restaurant?.result.user_ratings_total,
+        isFavorite: true,
+      })
+    }
+
     // Return the favorites as a JSON response
-    return new Response(JSON.stringify(favorites), {
+    return new Response(JSON.stringify(favRestaurants), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
