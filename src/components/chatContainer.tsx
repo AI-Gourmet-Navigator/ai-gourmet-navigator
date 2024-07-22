@@ -1,7 +1,7 @@
 'use client'
+import { type MessageOb } from '@/constants/questionList'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { type MessageOb } from './chat'
-import { USER_ROLE } from '@/app/result/constants'
+import { USER_ROLE } from '@/constants/userRole'
 
 export function ChatContainer({ role, content }: MessageOb) {
   return (

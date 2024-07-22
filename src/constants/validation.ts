@@ -1,8 +1,8 @@
 import { z } from 'zod'
 
 export const schemas = {
-  genre: z.string().min(3, { message: 'Genre cannot be empty' }),
-  atmosphere: z.string().min(3, { message: 'Atmosphere cannot be empty' }),
+  genre: z.string().min(1, { message: 'Genre cannot be empty' }),
+  atmosphere: z.string().min(1, { message: 'Atmosphere cannot be empty' }),
   rate: z
     .number()
     .min(1)

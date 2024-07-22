@@ -1,10 +1,11 @@
 'use client'
-import { USER_ROLE } from '@/app/result/constants'
-import { type MessageOb } from './chat'
+
+import { USER_ROLE } from '@/constants/userRole'
 import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
 import { PaperPlaneIcon } from '@radix-ui/react-icons'
 import { useRef } from 'react'
+import { type MessageOb } from '@/constants/questionList'
 
 interface ChatInputProps {
   onSubmit: (message: MessageOb) => void

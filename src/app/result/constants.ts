@@ -16,8 +16,3 @@ export const center = {
   lat: 49.2827,
   lng: -123.1207,
 }
-
-export const USER_ROLE = {
-  user: 'user',
-  app: 'app',
-}
