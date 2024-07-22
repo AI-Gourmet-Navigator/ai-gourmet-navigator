@@ -2,69 +2,30 @@
 import { useState } from 'react'
 import { ChatContainer } from './chatContainer'
 import { ChatInput } from './chatInput'
-import { USER_ROLE } from '@/app/result/constants'
 import { Button } from './ui/button'
 import { type SchemaKeys, schemas } from '@/constants/validation'
-
-export interface MessageOb {
-  type: string
-  role: string
-  content: string
-}
-
-const questionList: MessageOb[] = [
-  {
-    type: 'genre',
-    role: USER_ROLE.app,
-    content: 'What type of cuisine or genre of food are you craving for?',
-  },
-  {
-    type: 'atmosphere',
-    role: USER_ROLE.app,
-    content: 'Can you describe the atmosphere or ambiance of the restaurant?',
-  },
-  {
-    type: 'rate',
-    role: USER_ROLE.app,
-    content: 'What rating should the restaurant have to be ideal?',
-  },
-  {
-    type: 'numberOfRatings',
-    role: USER_ROLE.app,
-    content:
-      'How many customer reviews should the restaurant have to be ideal?',
-  },
-  {
-    type: 'placeLevel',
-    role: USER_ROLE.app,
-    content:
-      'What is the place level of the restaurant on a scale from 1 to 5?',
-  },
-  // {
-  //   type:"location",
-  //   content:
-  //     'Can you describe the atmosphere or ambiance of the restaurant?',
-  // },
-]
+import {
+  initialChat,
+  questionList,
+  type UserAnswer,
+  type MessageOb,
+} from '@/constants/questionList'
+import { USER_ROLE } from '@/constants/userRole'
 
 function isSchemaKey(key: string): key is SchemaKeys {
   return key in schemas
 }
 
 export function Chat() {
-  const initialChat: MessageOb = {
-    type: 'genre',
-    role: USER_ROLE.app,
-    content: 'What type of cuisine or genre of food are you craving for?',
-  }
   const [chats, setChats] = useState<MessageOb[]>([
     questionList[0] ?? initialChat,
   ])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0)
   const [showInput, setShowInput] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [userAnswer, setUserAnswer] = useState<UserAnswer>({})
 
-  const handleSubmit = async (message: MessageOb) => {
+  const handleSubmit = (message: MessageOb) => {
     const currentQuestion = questionList[currentQuestionIndex]
     if (!currentQuestion) return
 
@@ -92,6 +53,10 @@ export function Chat() {
       content: message.content,
     }
     setChats((prev) => [...prev, answer])
+    setUserAnswer((prev) => ({
+      ...prev,
+      [currentQuestion.type]: message.content,
+    }))
     setErrorMessage(null)
 
     const nextQuestionIndex = currentQuestionIndex + 1
@@ -105,7 +70,40 @@ export function Chat() {
       setShowInput(false)
     }
   }
+
   const currentQuestionType = questionList[currentQuestionIndex]?.type ?? ''
+
+  const handleSearchRestaurantPreference = async () => {
+    try {
+      const res = await fetch(`/api/preference`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          genre: userAnswer.genre ?? '',
+          atmosphere: userAnswer.atmosphere ?? '',
+          rate: userAnswer.rate ? parseInt(userAnswer.rate) : 0,
+          numberOfRatings: userAnswer.numberOfRatings
+            ? parseInt(userAnswer.numberOfRatings)
+            : 0,
+          placeLevel: userAnswer.placeLevel
+            ? parseInt(userAnswer.placeLevel)
+            : 0,
+          location: 'Vancouver',
+        }),
+      })
+      if (!res.ok) {
+        throw new Error('Network response was not ok')
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const data = await res.json()
+      console.log(data, 'result')
+    } catch (error) {
+      console.error('Error fetching restaurant preferences:', error)
+      return []
+    }
+  }
 
   return (
     <>
@@ -119,14 +117,16 @@ export function Chat() {
           />
         )
       })}
-      <div className="sticky bottom-0 w-full">
+      <div className="w-full">
         {showInput && (
           <ChatInput
             onSubmit={handleSubmit}
             currentQuestionType={currentQuestionType}
           />
         )}
-        {!showInput && <Button>Search</Button>}
+        {!showInput && (
+          <Button onClick={handleSearchRestaurantPreference}>Search</Button>
+        )}
         {errorMessage && (
           <div className="mt-2 flex w-full justify-center">{errorMessage}</div>
         )}
