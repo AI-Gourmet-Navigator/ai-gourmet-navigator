@@ -2,10 +2,15 @@
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps'
 import { env } from '@/env'
 import { center } from '../app/result/constants'
-import { MOCK_RESTAURANTS } from '@/app/result/mock'
 import { MarkerWithInfoWindow } from './marker-with-infowindow'
+import { type Restaurants } from '@/app/api/preference/route'
 
-export function Map() {
+interface Map {
+  restaurants: Restaurants[]
+}
+
+export function Map({ restaurants }: Map) {
+  // Need to add isFavorite later
   return (
     <div
       style={{
@@ -23,25 +28,24 @@ export function Map() {
           gestureHandling={'greedy'}
           disableDefaultUI={true}
         >
-          {MOCK_RESTAURANTS.map(
+          {restaurants.map(
             ({
-              id,
-              location,
+              place_id,
+              geometry: { location },
               name,
-              imageUrls,
+              photos,
               rating,
-              ratingsTotal,
-              isFavorite,
+              user_ratings_total,
             }) => (
               <MarkerWithInfoWindow
-                key={`${id}-map`}
-                placeId={id}
+                key={`${place_id}-map`}
+                placeId={place_id}
                 location={location}
                 name={name}
-                imageUrls={imageUrls}
+                imageUrls={photos?.map((photo) => photo.photo_reference) ?? []}
                 rating={rating}
-                ratingsTotal={ratingsTotal}
-                isFavorite={isFavorite}
+                ratingsTotal={user_ratings_total}
+                isFavorite={false}
                 isMap
               />
             ),
