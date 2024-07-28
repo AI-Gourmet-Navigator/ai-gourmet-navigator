@@ -1,5 +1,4 @@
-import { Tab } from '../../components/tab'
-import { type Restaurants } from '../api/preference/route'
+import { Tab, type Restaurant } from '../../components/tab'
 import { env } from '@/env'
 export default async function Result() {
   const result = await fetch(`${env.APP_URL}/api/preference/`, {
@@ -14,11 +13,10 @@ export default async function Result() {
     }),
   })
 
-  const data = (await result.json()) as Restaurants
-  console.log({ data })
+  const data = (await result.json()) as Restaurant[]
   return (
     <main>
-      <Tab />
+      <Tab restaurants={data} />
     </main>
   )
 }

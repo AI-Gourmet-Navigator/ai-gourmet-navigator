@@ -5,7 +5,8 @@ import type {
 } from '@pinecone-database/pinecone'
 import { getEmbedData } from './utils/cohere'
 import { getAllNamespaces, similaritySearch } from './utils/pinecone'
-import { fetchPlaceDetails, type PlaceDetails } from './utils/google-map'
+import { fetchPlaceDetails, type PlaceDetails } from '../../../lib/google-map'
+import { getImageUrls } from '@/lib/get-image-urls'
 
 export interface Restaurants extends PlaceDetails {
   score?: number
@@ -85,15 +86,28 @@ export async function POST(req: Request) {
       .sort((a, b) => b.score! - a.score!) // Sort the array by score in descending order
       .slice(0, 3) // Get the first 3 elements
 
-    const results: Restaurants[] = []
+    const results = []
     for (const match of matches) {
       try {
         const details = await fetchPlaceDetails(match.id)
         if (!details || details?.status !== 'OK') {
           return new Response('Failed to get restaurant data', { status: 500 })
         }
+        const {
+          place_id,
+          name,
+          geometry: { location },
+          photos,
+          rating,
+          user_ratings_total,
+        } = details.result
         results.push({
-          ...details.result,
+          id: place_id,
+          name,
+          location,
+          imageUrls: getImageUrls(photos),
+          rating,
+          ratingsTotal: user_ratings_total,
           score: match.score,
         })
       } catch (error) {
