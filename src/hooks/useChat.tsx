@@ -8,8 +8,7 @@ import {
 } from '@/constants/questionList'
 import { USER_ROLE } from '@/constants/userRole'
 import { useRouter } from 'next/navigation'
-import { useSearchResultStore } from '@/store/searchResultStore'
-import { fetchRestaurantPreferences } from '@/lib/fetchRestaurantPreferences'
+import { useUserPreferenceStore } from '@/store/userPreferenceStore'
 
 function isSchemaKey(key: string): key is SchemaKeys {
   return key in schemas
@@ -24,8 +23,9 @@ export function useChat() {
   const [showInput, setShowInput] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [userAnswer, setUserAnswer] = useState<UserAnswer>({})
-  const [loading, setLoading] = useState<boolean>(false)
-  const setRestaurants = useSearchResultStore((state) => state.setRestaurants)
+  const setUserPreference = useUserPreferenceStore(
+    (state) => state.setUserPreference,
+  )
 
   const handleSubmit = useCallback(
     (message: MessageOb) => {
@@ -72,27 +72,17 @@ export function useChat() {
     [currentQuestionIndex],
   )
 
-  const handleSearchRestaurantPreference = async () => {
-    setLoading(true)
-    try {
-      const data = await fetchRestaurantPreferences(userAnswer)
-      setRestaurants(data)
-      router.push('/result')
-    } catch (error) {
-      console.error('Error fetching restaurant preferences:', error)
-      setErrorMessage('Failed to fetch restaurant preferences')
-    } finally {
-      setLoading(false)
-    }
+  const handleStoreUserPreference = () => {
+    setUserPreference(userAnswer)
+    router.push('/result')
   }
 
   return {
     chats,
     showInput,
     errorMessage,
-    loading,
     currentQuestionType: questionList[currentQuestionIndex]?.type ?? '',
     handleSubmit,
-    handleSearchRestaurantPreference,
+    handleStoreUserPreference,
   }
 }

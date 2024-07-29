@@ -8,9 +8,9 @@ interface UserAnswer {
   placeLevel?: string
 }
 
-export async function fetchRestaurantPreferences(
+export const searchRestaurantsByUserAnswer = async (
   userAnswer: UserAnswer,
-): Promise<Restaurants[]> {
+): Promise<Restaurants[]> => {
   const res = await fetch('/api/preference', {
     method: 'POST',
     headers: {
