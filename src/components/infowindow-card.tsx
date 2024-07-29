@@ -34,7 +34,7 @@ export function InfoWindowCard({
     <Card className={`${isMap ? 'max-w-80' : 'max-w-[384px]'}`}>
       <Carousel className="w-full">
         <CarouselContent>
-          {imageUrls.map((photo, index) => (
+          {imageUrls.slice(0, 20).map((photo, index) => (
             <CarouselItem key={`${photo}-${index}`}>
               <div className="flex items-center justify-center">
                 <Image
