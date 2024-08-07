@@ -2,11 +2,15 @@
 import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps'
 import { env } from '@/env'
 import { center } from '../app/result/constants'
-
 import { MarkerWithInfoWindow } from './marker-with-infowindow'
-import { type Restaurant } from './tab'
+import { type Restaurants } from '@/app/api/preference/route'
 
-export function Map({ restaurants }: { restaurants: Restaurant[] }) {
+interface Map {
+  restaurants: Restaurants[]
+}
+
+export function Map({ restaurants }: Map) {
+  // Need to add isFavorite later
   return (
     <div
       style={{
@@ -26,26 +30,33 @@ export function Map({ restaurants }: { restaurants: Restaurant[] }) {
         >
           {restaurants.map(
             ({
-              id,
-              location,
+              place_id,
+              geometry,
               name,
-              imageUrls,
+              photos,
               rating,
-              ratingsTotal,
-              isFavorite,
-            }) => (
-              <MarkerWithInfoWindow
-                key={`${id}-map`}
-                placeId={id}
-                location={location}
-                name={name}
-                imageUrls={imageUrls}
-                rating={rating}
-                ratingsTotal={ratingsTotal}
-                isFavorite={isFavorite}
-                isMap
-              />
-            ),
+              user_ratings_total,
+            }) => {
+              if (!geometry?.location) {
+                console.error('Missing location data for restaurant:', name)
+                return null // Skip rendering this marker
+              }
+              return (
+                <MarkerWithInfoWindow
+                  key={`${place_id}-map`}
+                  placeId={place_id}
+                  location={geometry.location}
+                  name={name}
+                  imageUrls={
+                    photos?.map((photo) => photo.photo_reference) ?? []
+                  }
+                  rating={rating}
+                  ratingsTotal={user_ratings_total}
+                  isFavorite={false}
+                  isMap
+                />
+              )
+            },
           )}
         </GoogleMap>
       </APIProvider>
