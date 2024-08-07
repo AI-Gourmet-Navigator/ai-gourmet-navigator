@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect, userEvent, within } from '@storybook/test'
 import { Tab } from '@/components/tab'
-
+import { MOCK_RESTAURANTS } from '../mocks/restaurants'
 const meta = {
   title: 'Components/Tab',
   component: Tab,
@@ -12,6 +12,9 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const TabComponent: Story = {
+  args: {
+    restaurants: MOCK_RESTAURANTS,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 

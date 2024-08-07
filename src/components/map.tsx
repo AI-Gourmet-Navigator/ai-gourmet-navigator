@@ -31,24 +31,32 @@ export function Map({ restaurants }: Map) {
           {restaurants.map(
             ({
               place_id,
-              geometry: { location },
+              geometry,
               name,
               photos,
               rating,
               user_ratings_total,
-            }) => (
-              <MarkerWithInfoWindow
-                key={`${place_id}-map`}
-                placeId={place_id}
-                location={location}
-                name={name}
-                imageUrls={photos?.map((photo) => photo.photo_reference) ?? []}
-                rating={rating}
-                ratingsTotal={user_ratings_total}
-                isFavorite={false}
-                isMap
-              />
-            ),
+            }) => {
+              if (!geometry?.location) {
+                console.error('Missing location data for restaurant:', name)
+                return null // Skip rendering this marker
+              }
+              return (
+                <MarkerWithInfoWindow
+                  key={`${place_id}-map`}
+                  placeId={place_id}
+                  location={geometry.location}
+                  name={name}
+                  imageUrls={
+                    photos?.map((photo) => photo.photo_reference) ?? []
+                  }
+                  rating={rating}
+                  ratingsTotal={user_ratings_total}
+                  isFavorite={false}
+                  isMap
+                />
+              )
+            },
           )}
         </GoogleMap>
       </APIProvider>

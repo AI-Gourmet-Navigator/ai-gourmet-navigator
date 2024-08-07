@@ -1,7 +1,9 @@
 import { Card, CardContent, CardTitle, CardDescription } from './ui/card'
-import { Button } from './ui/button'
+import { FavoriteButton } from './favorite-button'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { HeartIcon, HeartFilledIcon, StarIcon } from '@radix-ui/react-icons'
+import { StarIcon } from '@radix-ui/react-icons'
+
 import {
   Carousel,
   CarouselContent,
@@ -9,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+
 import Link from 'next/link'
 
 interface InfoWindowCard {
@@ -30,6 +33,7 @@ export function InfoWindowCard({
   isFavorite,
   isMap,
 }: InfoWindowCard) {
+  const { status } = useSession()
   return (
     <Card className={`${isMap ? 'max-w-80' : 'max-w-[384px]'}`}>
       <Carousel className="w-full">
@@ -57,15 +61,9 @@ export function InfoWindowCard({
         <CardContent className={`${isMap ? '' : 'p-4 pt-0'}`}>
           <div className="flex items-center justify-between">
             <CardTitle>{name}</CardTitle>
-            <Button
-              variant="ghost"
-              onClick={(event) => {
-                event.preventDefault()
-              }}
-              className={`${isMap ? '' : 'px-2'}`}
-            >
-              {isFavorite ? <HeartFilledIcon /> : <HeartIcon />}
-            </Button>
+            {status === 'authenticated' && (
+              <FavoriteButton isFavorite={isFavorite} placeId={placeId} />
+            )}
           </div>
           <div className="flex items-center">
             <StarIcon />

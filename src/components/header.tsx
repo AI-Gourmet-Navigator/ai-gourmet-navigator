@@ -29,10 +29,10 @@ export const Header = () => {
         <ul className="mr-6 hidden gap-6 sm:flex">
           <li>
             <Link
-              href={session ? '/favorite' : '/api/auth/signin'}
+              href={session ? '/favorites' : '/api/auth/signin'}
               className="no-underline hover:text-primary"
             >
-              Favorite
+              Favorites
             </Link>
           </li>
           <li>
@@ -76,10 +76,10 @@ export const Header = () => {
                 <ul className="flex flex-col gap-4">
                   <li className="pt-2">
                     <Link
-                      href={session ? '/favorite' : '/api/auth/signin'}
+                      href={session ? '/favorites' : '/api/auth/signin'}
                       className="no-underline hover:text-primary"
                     >
-                      Favorite
+                      Favorites
                     </Link>
                   </li>
                   <li>
