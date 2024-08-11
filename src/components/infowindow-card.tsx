@@ -35,31 +35,30 @@ export function InfoWindowCard({
 }: InfoWindowCard) {
   const { status } = useSession()
   return (
-    <Link href={`/restaurant-detail/${placeId}`}>
-      <Card className={`${isMap ? 'max-w-80' : 'max-w-[384px]'}`}>
-        <Carousel className="w-full">
-          <CarouselContent>
-            {imageUrls.map((photo, index) => (
-              <CarouselItem key={`${photo}-${index}`}>
-                <div className="flex items-center justify-center">
-                  <Image
-                    className={`w-[384px] rounded-t-lg object-cover pb-4 ${isMap ? 'h-[230px]' : 'h-[320px] sm:h-[320px] md:h-[260px]'}`}
-                    src={photo}
-                    width={0}
-                    height={0}
-                    sizes="100vh"
-                    alt={`${name}-image`}
-                    priority
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 transform" />
-          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 transform" />
-        </Carousel>
-
-        <CardContent>
+    <Card className={`${isMap ? 'max-w-80' : 'max-w-[384px]'}`}>
+      <Carousel className="w-full">
+        <CarouselContent>
+          {imageUrls.slice(0, 20).map((photo, index) => (
+            <CarouselItem key={`${photo}-${index}`}>
+              <div className="flex items-center justify-center">
+                <Image
+                  className={`w-[384px] rounded-t-lg object-cover pb-4 ${isMap ? 'h-[230px]' : 'h-[320px] sm:h-[320px] md:h-[260px]'}`}
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=${300}&photo_reference=${photo}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API}`}
+                  width={0}
+                  height={0}
+                  sizes="100vh"
+                  alt={`${name}-image`}
+                  priority
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 transform" />
+        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 transform" />
+      </Carousel>
+      <Link href={`/restaurant-detail/${placeId}`}>
+        <CardContent className={`${isMap ? '' : 'p-4 pt-0'}`}>
           <div className="flex items-center justify-between">
             <CardTitle>{name}</CardTitle>
             {status === 'authenticated' && (
@@ -71,7 +70,7 @@ export function InfoWindowCard({
             <CardDescription>{`${rating} (${ratingsTotal})`}</CardDescription>
           </div>
         </CardContent>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   )
 }
