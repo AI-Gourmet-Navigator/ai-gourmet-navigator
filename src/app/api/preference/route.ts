@@ -12,6 +12,19 @@ export interface Restaurants extends PlaceDetails {
   score?: number
 }
 
+export interface ModifiedRestaurant {
+  id: string
+  name: string
+  location: {
+    lat: number
+    lng: number
+  }
+  imageUrls: string[]
+  rating: number
+  ratingsTotal: number
+  score?: number
+}
+
 const nonEmptyString = z.string().min(1, { message: 'String cannot be empty' })
 
 const RestaurantPreferencesSchema = z.object({

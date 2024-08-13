@@ -1,10 +1,10 @@
-import { type Restaurants } from '@/app/api/preference/route'
+import type { ModifiedRestaurant } from '@/app/api/preference/route'
 import { create } from 'zustand'
 
 interface RecommendedRestaurantListState {
-  recommendedRestaurantList: Restaurants[] | null
+  recommendedRestaurantList: ModifiedRestaurant[] | null
   setRecommendedRestaurantList: (
-    recommendedRestaurantList: Restaurants[],
+    recommendedRestaurantList: ModifiedRestaurant[],
   ) => void
 }
 

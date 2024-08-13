@@ -8,7 +8,7 @@ import { List } from './list'
 import { useUserPreferenceStore } from '@/store/userPreferenceStore'
 import { useEffect, useState } from 'react'
 import { searchRestaurantsByUserAnswer } from '@/lib/fetchRestaurantPreferences'
-import { type Restaurants } from '@/app/api/preference/route'
+import type { ModifiedRestaurant } from '@/app/api/preference/route'
 import Loading from '@/app/loading'
 // import { useRecommendedRestaurantListStore } from '@/store/recommendedRestaurantList'
 
@@ -16,7 +16,9 @@ export function Tab() {
   const userPreference = useUserPreferenceStore((state) => state.userPreference)
   // const { setRecommendedRestaurantList } = useRecommendedRestaurantListStore() // Later we need for favorite...?
   const [loading, setLoading] = useState<boolean>(false)
-  const [restaurantsList, setRestaurantsList] = useState<Restaurants[]>([])
+  const [restaurantsList, setRestaurantsList] = useState<ModifiedRestaurant[]>(
+    [],
+  )
 
   useEffect(() => {
     setLoading(true)

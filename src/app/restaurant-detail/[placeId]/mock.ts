@@ -1,5 +1,4 @@
 import { env } from '@/env'
-console.log(env.NEXT_PUBLIC_GOOGLE_MAP_API)
 export const MOCK_RESTAURANT_DETAILS = {
   id: 'ChIJJ_oZQcpzhlQRYmMyGpKp7PA',
   name: "Farmer's Apprentice Restaurant",

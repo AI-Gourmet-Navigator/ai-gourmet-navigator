@@ -70,7 +70,7 @@ export const MapMode: Story = {
   },
 }
 
-export const mapModeWithFav: Story = {
+export const MapModeWithFav: Story = {
   args: {
     name: "Farmer's Apprentice Restaurant",
     imageUrls: [
