@@ -15,6 +15,13 @@ export const TabComponent: Story = {
   args: {
     restaurants: MOCK_RESTAURANTS,
   },
+  parameters: {
+    nextjs: {
+      router: {
+        query: '',
+      },
+    },
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
@@ -35,5 +42,20 @@ export const TabComponent: Story = {
     // List Tab appears again after clicking list button
     await userEvent.click(listButton)
     await expect(listTab).toBeInTheDocument()
+  },
+}
+
+export const TabWithMap: Story = {
+  args: {
+    restaurants: MOCK_RESTAURANTS,
+  },
+  parameters: {
+    nextjs: {
+      router: {
+        query: {
+          tab: 'map',
+        },
+      },
+    },
   },
 }
