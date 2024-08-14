@@ -6,6 +6,7 @@ interface RecommendedRestaurantListState {
   setRecommendedRestaurantList: (
     recommendedRestaurantList: ModifiedRestaurant[],
   ) => void
+  toggleIsFavoriteByPlaceId: (placeId: string) => void
 }
 
 export const useRecommendedRestaurantListStore =
@@ -13,4 +14,26 @@ export const useRecommendedRestaurantListStore =
     recommendedRestaurantList: null,
     setRecommendedRestaurantList: (recommendedRestaurantList) =>
       set({ recommendedRestaurantList }),
+    toggleIsFavoriteByPlaceId: (placeId: string) =>
+      set((state) => {
+        if (
+          !state.recommendedRestaurantList ||
+          state.recommendedRestaurantList?.length === 0
+        ) {
+          return state
+        }
+        const newRecommendedRestaurantList =
+          state.recommendedRestaurantList.map((restaurant) => {
+            if (placeId === restaurant.id)
+              return {
+                ...restaurant,
+                isFavorite: !restaurant.isFavorite,
+              }
+            else return restaurant
+          })
+        return {
+          ...state,
+          recommendedRestaurantList: newRecommendedRestaurantList,
+        }
+      }),
   }))

@@ -1,7 +1,8 @@
 import { useOptimistic, useRef } from 'react'
 import { Button } from './ui/button'
 import { HeartIcon, HeartFilledIcon } from '@radix-ui/react-icons'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
+import { useRecommendedRestaurantListStore } from '@/store/recommendedRestaurantList'
 
 export function FavoriteButton({
   isFavorite,
@@ -10,7 +11,10 @@ export function FavoriteButton({
   isFavorite: boolean
   placeId: string
 }) {
+  const { toggleIsFavoriteByPlaceId } = useRecommendedRestaurantListStore()
   const router = useRouter()
+  const pathname = usePathname()
+  const isResultPage = pathname.includes('result')
   const formRef = useRef<HTMLFormElement>(null)
   async function formAction(formData: FormData) {
     addOptimisticFavorite(!isFavorite)
@@ -20,7 +24,14 @@ export function FavoriteButton({
       method: 'POST',
       body: JSON.stringify({ placeId }),
     })
-    router.refresh()
+    // We also want to update client side store managed by zustand
+    // When users are in the result page
+    if (isResultPage && placeId) {
+      toggleIsFavoriteByPlaceId(String(placeId))
+      // Otherwise, just let this app update data on the server side
+    } else {
+      router.refresh()
+    }
   }
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {

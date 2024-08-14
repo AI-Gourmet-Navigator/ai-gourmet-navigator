@@ -7,6 +7,8 @@ import { getEmbedData } from './utils/cohere'
 import { getAllNamespaces, similaritySearch } from './utils/pinecone'
 import { fetchPlaceDetails, type PlaceDetails } from '../../../lib/google-map'
 import { getImageUrls } from '@/lib/get-image-urls'
+import { checkIsFavorite } from '@/lib/checkIsFavorite'
+import { getServerAuthSession } from '@/server/auth'
 
 export interface Restaurants extends PlaceDetails {
   score?: number
@@ -23,6 +25,7 @@ export interface ModifiedRestaurant {
   rating: number
   ratingsTotal: number
   score?: number
+  isFavorite: boolean
 }
 
 const nonEmptyString = z.string().min(1, { message: 'String cannot be empty' })
@@ -47,6 +50,11 @@ const RestaurantPreferencesSchema = z.object({
 type RestaurantPreferences = z.infer<typeof RestaurantPreferencesSchema>
 
 export async function POST(req: Request) {
+  const session = await getServerAuthSession()
+  if (session === null) {
+    return new Response('Invalid data update!', { status: 400 })
+  }
+  const userId = session.user.id
   try {
     const request = (await req.json()) as RestaurantPreferences
     const result = RestaurantPreferencesSchema.safeParse(request)
@@ -122,6 +130,7 @@ export async function POST(req: Request) {
           rating,
           ratingsTotal: user_ratings_total,
           score: match.score,
+          isFavorite: await checkIsFavorite({ placeId: place_id, userId }),
         })
       } catch (error) {
         console.error(`Error fetching place details for ID ${match.id}:`, error)

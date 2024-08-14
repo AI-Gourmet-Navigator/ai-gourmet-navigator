@@ -29,7 +29,15 @@ export function Map({ restaurants }: Map) {
           disableDefaultUI={true}
         >
           {restaurants.map(
-            ({ id, location, name, imageUrls, rating, ratingsTotal }) => {
+            ({
+              id,
+              location,
+              name,
+              imageUrls,
+              rating,
+              ratingsTotal,
+              isFavorite,
+            }) => {
               if (!location) {
                 console.error('Missing location data for restaurant:', name)
                 return null // Skip rendering this marker
@@ -43,7 +51,7 @@ export function Map({ restaurants }: Map) {
                   imageUrls={imageUrls}
                   rating={rating}
                   ratingsTotal={ratingsTotal}
-                  isFavorite={false}
+                  isFavorite={isFavorite}
                   isMap
                 />
               )
