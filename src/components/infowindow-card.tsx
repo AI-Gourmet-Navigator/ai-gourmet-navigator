@@ -38,12 +38,12 @@ export function InfoWindowCard({
     <Card className={`${isMap ? 'max-w-80' : 'max-w-[384px]'}`}>
       <Carousel className="w-full">
         <CarouselContent>
-          {imageUrls.slice(0, 20).map((photo, index) => (
-            <CarouselItem key={`${photo}-${index}`}>
+          {imageUrls.slice(0, 20).map((url) => (
+            <CarouselItem key={url}>
               <div className="flex items-center justify-center">
                 <Image
                   className={`w-[384px] rounded-t-lg object-cover pb-4 ${isMap ? 'h-[230px]' : 'h-[320px] sm:h-[320px] md:h-[260px]'}`}
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=${300}&photo_reference=${photo}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API}`}
+                  src={url}
                   width={0}
                   height={0}
                   sizes="100vh"

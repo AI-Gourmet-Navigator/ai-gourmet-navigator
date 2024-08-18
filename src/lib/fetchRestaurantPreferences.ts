@@ -1,4 +1,4 @@
-import { type Restaurants } from '@/app/api/preference/route'
+import type { ModifiedRestaurant } from '@/app/api/preference/route'
 
 interface UserAnswer {
   genre?: string
@@ -10,7 +10,7 @@ interface UserAnswer {
 
 export const searchRestaurantsByUserAnswer = async (
   userAnswer: UserAnswer,
-): Promise<Restaurants[]> => {
+): Promise<ModifiedRestaurant[]> => {
   const res = await fetch('/api/preference', {
     method: 'POST',
     headers: {

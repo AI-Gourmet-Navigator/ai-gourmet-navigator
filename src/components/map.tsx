@@ -3,10 +3,10 @@ import { APIProvider, Map as GoogleMap } from '@vis.gl/react-google-maps'
 import { env } from '@/env'
 import { center } from '../app/result/constants'
 import { MarkerWithInfoWindow } from './marker-with-infowindow'
-import { type Restaurants } from '@/app/api/preference/route'
+import type { ModifiedRestaurant } from '@/app/api/preference/route'
 
 interface Map {
-  restaurants: Restaurants[]
+  restaurants: ModifiedRestaurant[]
 }
 
 export function Map({ restaurants }: Map) {
@@ -29,29 +29,20 @@ export function Map({ restaurants }: Map) {
           disableDefaultUI={true}
         >
           {restaurants.map(
-            ({
-              place_id,
-              geometry,
-              name,
-              photos,
-              rating,
-              user_ratings_total,
-            }) => {
-              if (!geometry?.location) {
+            ({ id, location, name, imageUrls, rating, ratingsTotal }) => {
+              if (!location) {
                 console.error('Missing location data for restaurant:', name)
                 return null // Skip rendering this marker
               }
               return (
                 <MarkerWithInfoWindow
-                  key={`${place_id}-map`}
-                  placeId={place_id}
-                  location={geometry.location}
+                  key={`${id}-map`}
+                  placeId={id}
+                  location={location}
                   name={name}
-                  imageUrls={
-                    photos?.map((photo) => photo.photo_reference) ?? []
-                  }
+                  imageUrls={imageUrls}
                   rating={rating}
-                  ratingsTotal={user_ratings_total}
+                  ratingsTotal={ratingsTotal}
                   isFavorite={false}
                   isMap
                 />
