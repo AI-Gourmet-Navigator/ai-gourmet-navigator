@@ -1,8 +1,8 @@
-import { Tab } from '../../components/tab'
+import { Wrapper } from '../../components/tab-wrapper'
 export default async function Result() {
   return (
     <main>
-      <Tab />
+      <Wrapper />
     </main>
   )
 }
