@@ -18,15 +18,15 @@ export const NoPhotos: Story = {
 
 export const OnePhoto: Story = {
   args: {
-    photos: [{ imageUrl: 'https://loremflickr.com/640/360' }],
+    photos: ['https://loremflickr.com/640/360'],
   },
 }
 
 export const TwoPhotos: Story = {
   args: {
     photos: [
-      { imageUrl: 'https://loremflickr.com/640/360' },
-      { imageUrl: 'https://loremflickr.com/640/360' },
+      'https://loremflickr.com/640/360',
+      'https://loremflickr.com/640/360',
     ],
   },
 }
@@ -34,9 +34,9 @@ export const TwoPhotos: Story = {
 export const MultiplePhotos: Story = {
   args: {
     photos: [
-      { imageUrl: 'https://loremflickr.com/640/360' },
-      { imageUrl: 'https://loremflickr.com/640/360' },
-      { imageUrl: 'https://loremflickr.com/640/360' },
+      'https://loremflickr.com/640/360',
+      'https://loremflickr.com/640/360',
+      'https://loremflickr.com/640/360',
     ],
   },
 }

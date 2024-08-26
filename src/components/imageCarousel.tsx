@@ -12,9 +12,7 @@ import {
 } from '@/components/ui/carousel'
 
 interface ImageCarousel {
-  photos: {
-    imageUrl: string
-  }[]
+  photos: string[]
 }
 
 export function ImageCarousel({ photos }: ImageCarousel) {
@@ -48,8 +46,8 @@ export function ImageCarousel({ photos }: ImageCarousel) {
       ) : photos.length === 1 ? (
         <div className="mb-8 flex items-center justify-center">
           <Image
-            src={photos[0]?.imageUrl ?? '/default-image.png'}
-            alt={`${photos[0]?.imageUrl}`}
+            src={photos[0] ?? '/default-image.png'}
+            alt={`${photos[0]}`}
             className="h-[320px] w-[640px] object-cover"
             sizes="100vw"
             width={0}
@@ -74,8 +72,8 @@ export function ImageCarousel({ photos }: ImageCarousel) {
                   <Card>
                     <div className="flex items-center justify-center">
                       <Image
-                        src={photo.imageUrl}
-                        alt={`${photo.imageUrl}-${index}`}
+                        src={photo}
+                        alt={`${photo}-${index}`}
                         className="h-[320px] w-[640px] object-cover"
                         sizes="100vw"
                         width={0}
