@@ -20,7 +20,7 @@ interface InfoWindowCard {
   imageUrls: string[]
   rating: number
   ratingsTotal: number
-  isFavorite: boolean
+  isFavorite?: boolean
   isMap?: boolean
 }
 
@@ -61,7 +61,7 @@ export function InfoWindowCard({
         <CardContent className={`${isMap ? '' : 'p-4 pt-0'}`}>
           <div className="flex items-center justify-between">
             <CardTitle>{name}</CardTitle>
-            {status === 'authenticated' && (
+            {status === 'authenticated' && isFavorite !== undefined && (
               <FavoriteButton isFavorite={isFavorite} placeId={placeId} />
             )}
           </div>

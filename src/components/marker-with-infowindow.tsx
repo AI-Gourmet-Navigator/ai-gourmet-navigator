@@ -17,7 +17,7 @@ interface MarkerWithInfoWindowProps {
   imageUrls: string[]
   rating: number
   ratingsTotal: number
-  isFavorite: boolean
+  isFavorite?: boolean
   isMap: boolean
 }
 
