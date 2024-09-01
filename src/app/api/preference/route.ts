@@ -48,6 +48,22 @@ const RestaurantPreferencesSchema = z.object({
 })
 
 type RestaurantPreferences = z.infer<typeof RestaurantPreferencesSchema>
+interface Location {
+  lat: number
+  lng: number
+}
+
+interface Result {
+  id: string
+  name: string
+  location: Location // Updated to match the actual structure
+  imageUrls: string[]
+  rating: number
+  ratingsTotal: number
+  score?: number // Optional as `match.score` can be undefined
+  priceLevel: number
+  isFavorite: boolean
+}
 
 export async function POST(req: Request) {
   const session = await getServerAuthSession()
@@ -63,10 +79,9 @@ export async function POST(req: Request) {
         status: 400,
       })
     }
-    const { genre, atmosphere, rate, numberOfRatings, placeLevel, location } =
-      result.data
+    const { genre, atmosphere, rate, numberOfRatings, placeLevel } = result.data
 
-    const text = `Genre: ${genre}\n Atmosphere: ${atmosphere} Location: ${location} Rating: ${rate} Total number of ratings: ${numberOfRatings} Price Level: ${placeLevel}`
+    const text = `Genre: ${genre}\n Atmosphere: ${atmosphere}`
 
     let embedData: number[][]
     try {
@@ -105,7 +120,6 @@ export async function POST(req: Request) {
     matches = matches
       .filter((item) => item.score !== undefined) // Filter out items with score undefined
       .sort((a, b) => b.score! - a.score!) // Sort the array by score in descending order
-      .slice(0, 3) // Get the first 3 elements
 
     const results = []
     for (const match of matches) {
@@ -121,6 +135,7 @@ export async function POST(req: Request) {
           photos,
           rating,
           user_ratings_total,
+          price_level,
         } = details.result
         results.push({
           id: place_id,
@@ -130,6 +145,7 @@ export async function POST(req: Request) {
           rating,
           ratingsTotal: user_ratings_total,
           score: match.score,
+          priceLevel: price_level,
           isFavorite: await checkIsFavorite({ placeId: place_id, userId }),
         })
       } catch (error) {
@@ -138,7 +154,21 @@ export async function POST(req: Request) {
       }
     }
 
-    return Response.json(results, { status: 200 })
+    const filteredResults = results
+      .reduce<Result[]>((acc, current) => {
+        const x = acc.find((item) => item.id === current.id)
+        if (!x) {
+          acc.push(current)
+        }
+        return acc
+      }, [])
+      .filter(
+        (item) =>
+          item.rating >= rate &&
+          item.ratingsTotal >= numberOfRatings &&
+          item.priceLevel <= placeLevel,
+      )
+    return Response.json(filteredResults.slice(0, 3), { status: 200 })
   } catch (error) {
     console.error('Unexpected error:', error)
     return new Response('Internal Server Error', { status: 500 })

@@ -34,6 +34,7 @@ export const env = createEnv({
     CO_API_KEY: z.string(),
     PINECONE_KEY: z.string(),
     APP_URL: z.string(),
+    PINECONE_DATABASE_NAME: z.string(),
   },
 
   /**
@@ -67,6 +68,7 @@ export const env = createEnv({
     CO_API_KEY: process.env.CO_API_KEY,
     PINECONE_KEY: process.env.PINECONE_KEY,
     APP_URL: process.env.APP_URL,
+    PINECONE_DATABASE_NAME: process.env.PINECONE_DATABASE_NAME,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
