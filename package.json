@@ -14,7 +14,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "jest",
+    "prebuild": "npx prisma migrate dev"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.4.0",
