@@ -1,10 +1,6 @@
+'use client'
 import Link from 'next/link'
-import {
-  StarIcon,
-  SewingPinFilledIcon,
-  HeartFilledIcon,
-  HeartIcon,
-} from '@radix-ui/react-icons'
+import { StarIcon, SewingPinFilledIcon } from '@radix-ui/react-icons'
 import { ImageCarousel } from '@/components/imageCarousel'
 import { ReviewCard } from '@/components/review-card'
 import { Button } from '@/components/ui/button'
@@ -16,48 +12,23 @@ import {
 } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ServiceItem } from '@/components/service-item'
+import type { Review } from '@/lib/google-map'
+import { getImageUrls } from '@/lib/get-image-urls'
+import type { DetailedRestaurant } from '@/app/api/restaurant/id/route'
+import { FavoriteButton } from './favorite-button'
+import { useSession } from 'next-auth/react'
 
-interface Detail {
-  isFavorite: boolean
-  restaurant: RestaurantDetails
+interface DetailProps {
+  restaurant: DetailedRestaurant
 }
 
-interface Review {
-  profile_photo_url: string
-  author_name: string
-  rating: number
-  text: string
-  relative_time_description: string
-}
-
-interface RestaurantDetails {
-  id: string
-  name: string
-  location: { lat: number; lng: number }
-  rating: number
-  ratingsTotal: number
-  url: string
-  website: string
-  formatted_address: string
-  serves_vegetarian_food: boolean
-  takeout: boolean
-  delivery: boolean
-  dine_in: boolean
-  wheelchair_accessible_entrance: boolean
-  reservable: boolean
-  price_level: number
-  opening_hours: { open_now: boolean; weekday_text: string[] }
-  photos: { imageUrl: string }[]
-  reviews: Review[]
-}
-
-export function Detail({ isFavorite, restaurant }: Detail) {
+export function Detail({ restaurant }: DetailProps) {
+  const { status } = useSession()
   const {
-    id,
+    place_id,
     name,
-    location,
     rating,
-    ratingsTotal,
+    user_ratings_total,
     url,
     website,
     formatted_address,
@@ -71,15 +42,16 @@ export function Detail({ isFavorite, restaurant }: Detail) {
     opening_hours,
     photos,
     reviews,
+    isFavorite,
   } = restaurant
 
-  const topThreeReviews = reviews.slice(0, 3)
+  const topThreeReviews = reviews?.slice(0, 3)
   const scrollableReviews: Review[] = Array.from(reviews)
 
   return (
     <>
       <div className="flex w-full flex-col items-center">
-        <ImageCarousel photos={photos} />
+        <ImageCarousel photos={getImageUrls(photos)} />
       </div>
       <div className="px-3 pb-8 sm:px-6">
         <div className="flex justify-between">
@@ -88,16 +60,16 @@ export function Detail({ isFavorite, restaurant }: Detail) {
               {name}
             </h2>
           </Link>
-          <Button variant="ghost">
-            {isFavorite ? <HeartFilledIcon /> : <HeartIcon />}
-          </Button>
+          {status === 'authenticated' && isFavorite !== undefined && (
+            <FavoriteButton isFavorite={isFavorite} placeId={place_id} />
+          )}
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center">
           <div className="mr-4 flex items-center gap-1">
             <StarIcon />
             <p className="leading-7">{rating}</p>
             <p className="leading-7">•</p>
-            <p className="leading-7">{ratingsTotal} reviews</p>
+            <p className="leading-7">{user_ratings_total} reviews</p>
           </div>
           <Link href={url} target="_blank" rel="noopener noreferrer">
             <div className="flex items-center gap-1">

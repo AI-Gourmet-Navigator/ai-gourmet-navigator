@@ -22,7 +22,7 @@ export interface Photo {
   width: number
 }
 
-interface Review {
+export interface Review {
   author_name: string
   author_url: string
   language: string
@@ -87,7 +87,7 @@ export interface PlaceDetails {
   wheelchair_accessible_entrance: boolean
 }
 
-interface PlaceDetailsResponse {
+export interface PlaceDetailsResponse {
   html_attributions: string[]
   result: PlaceDetails
   status: string
