@@ -18,8 +18,8 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story, context) => {
-      const session = context.args.session || null
+    (Story, { parameters }) => {
+      const { session } = parameters
       return (
         <MockSessionProvider session={session}>
           <Story />

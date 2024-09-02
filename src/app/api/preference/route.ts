@@ -25,7 +25,7 @@ export interface ModifiedRestaurant {
   rating: number
   ratingsTotal: number
   score?: number
-  isFavorite: boolean
+  isFavorite?: boolean
 }
 
 const nonEmptyString = z.string().min(1, { message: 'String cannot be empty' })
@@ -51,10 +51,7 @@ type RestaurantPreferences = z.infer<typeof RestaurantPreferencesSchema>
 
 export async function POST(req: Request) {
   const session = await getServerAuthSession()
-  if (session === null) {
-    return new Response('Invalid data update!', { status: 400 })
-  }
-  const userId = session.user.id
+  const userId = session?.user.id
   try {
     const request = (await req.json()) as RestaurantPreferences
     const result = RestaurantPreferencesSchema.safeParse(request)
@@ -103,7 +100,14 @@ export async function POST(req: Request) {
     }
 
     matches = matches
-      .filter((item) => item.score !== undefined) // Filter out items with score undefined
+      .filter((item) => item.score !== undefined)
+      .reduce<ScoredPineconeRecord<RecordMetadata>[]>((acc, current) => {
+        const exist = acc.find((item) => item.id === current.id)
+        if (!exist) {
+          acc.push(current)
+        }
+        return acc
+      }, []) // Filter out items with score undefined
       .sort((a, b) => b.score! - a.score!) // Sort the array by score in descending order
       .slice(0, 3) // Get the first 3 elements
 
@@ -130,7 +134,9 @@ export async function POST(req: Request) {
           rating,
           ratingsTotal: user_ratings_total,
           score: match.score,
-          isFavorite: await checkIsFavorite({ placeId: place_id, userId }),
+          isFavorite: userId
+            ? await checkIsFavorite({ placeId: place_id, userId })
+            : undefined,
         })
       } catch (error) {
         console.error(`Error fetching place details for ID ${match.id}:`, error)

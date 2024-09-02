@@ -4,84 +4,78 @@ import { InfoWindowCard } from '@/components/infowindow-card'
 const meta = {
   title: 'Components/InfoWindowCard',
   component: InfoWindowCard,
+  parameters: {
+    session: {
+      status: 'authenticated',
+    },
+  },
 } satisfies Meta<typeof InfoWindowCard>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
+const BASE_PROPS = {
+  name: "Farmer's Apprentice Restaurant",
+  imageUrls: [
+    `https://loremflickr.com/640/360`,
+    `https://loremflickr.com/640/360`,
+    `https://loremflickr.com/640/360`,
+  ],
+  rating: 4.4,
+  ratingsTotal: 382,
+  placeId: '1',
+}
+
 export const Favorite: Story = {
   args: {
-    name: "Farmer's Apprentice Restaurant",
-    imageUrls: [
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-    ],
-    rating: 4.4,
-    ratingsTotal: 382,
+    ...BASE_PROPS,
     isFavorite: true,
     isMap: false,
-    placeId: '1',
   },
 }
 
 export const NotFavorite: Story = {
   args: {
-    name: "Farmer's Apprentice Restaurant",
-    imageUrls: [
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-    ],
-    rating: 4.4,
-    ratingsTotal: 382,
+    ...BASE_PROPS,
     isFavorite: false,
     isMap: false,
-    placeId: '1',
+  },
+}
+
+export const Logout: Story = {
+  args: {
+    ...BASE_PROPS,
+    isMap: false,
+  },
+  parameters: {
+    session: {
+      status: 'unknown',
+    },
   },
 }
 
 export const SingleImage: Story = {
   args: {
-    name: "Farmer's Apprentice Restaurant",
+    ...BASE_PROPS,
     imageUrls: [`https://loremflickr.com/640/360`],
-    rating: 4.4,
-    ratingsTotal: 382,
     isFavorite: false,
     isMap: false,
-    placeId: '1',
   },
 }
 
 export const MapMode: Story = {
   args: {
-    name: "Farmer's Apprentice Restaurant",
-    imageUrls: [
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-    ],
-    rating: 4.4,
-    ratingsTotal: 382,
+    ...BASE_PROPS,
     isFavorite: false,
     isMap: true,
-    placeId: '1',
   },
 }
 
 export const MapModeWithFav: Story = {
   args: {
-    name: "Farmer's Apprentice Restaurant",
-    imageUrls: [
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-      `https://loremflickr.com/640/360`,
-    ],
-    rating: 4.4,
-    ratingsTotal: 382,
+    ...BASE_PROPS,
     isFavorite: true,
     isMap: true,
-    placeId: '1',
   },
 }
