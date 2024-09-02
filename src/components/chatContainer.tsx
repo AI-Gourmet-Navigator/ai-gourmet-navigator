@@ -10,7 +10,10 @@ export function ChatContainer({ role, content }: MessageOb) {
         {role === USER_ROLE.app ? (
           <div className="mb-6 flex w-full items-end">
             <Avatar className="mr-3 h-7 w-7 sm:h-12 sm:w-12">
-              <AvatarImage src="https://loremflickr.com/640/360" alt="Host" />
+              <AvatarImage
+                src="icons/ai-gourmet-navigator-logo.png"
+                alt="Host"
+              />
               <AvatarFallback className="text-xs sm:text-sm">
                 App
               </AvatarFallback>
@@ -29,7 +32,7 @@ export function ChatContainer({ role, content }: MessageOb) {
               {content}
             </div>
             <Avatar className="ml-3 h-7 w-7 sm:h-12 sm:w-12">
-              <AvatarImage src="https://loremflickr.com/640/360" alt="User" />
+              <AvatarImage src="icons/user.png" alt="User" />
               <AvatarFallback className="text-xs sm:text-sm">
                 User
               </AvatarFallback>
