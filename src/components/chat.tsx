@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { ChatContainer } from './chatContainer'
 import { ChatInput } from './chatInput'
 import { Button } from './ui/button'
@@ -15,17 +16,25 @@ export function Chat() {
     handleStoreUserPreference,
   } = useChat()
 
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chats])
+
   return (
-    <>
-      {chats.map((chat, index) => (
-        <ChatContainer
-          role={chat.role}
-          type={chat.type}
-          content={chat.content}
-          key={index}
-        />
-      ))}
-      <div className="mb-4 w-full">
+    <div>
+      <div className="pb-12" style={{ minHeight: 'calc(100vh - 124px)' }}>
+        {chats.map((chat, index) => (
+          <ChatContainer
+            role={chat.role}
+            type={chat.type}
+            content={chat.content}
+            key={index}
+          />
+        ))}
+      </div>
+      <div className="absolute bottom-0 left-1/2 mb-4 w-full -translate-x-1/2 transform">
         {showInput && (
           <ChatInput
             onSubmit={handleSubmit}
@@ -41,6 +50,6 @@ export function Chat() {
           <div className="mt-2 flex w-full justify-center">{errorMessage}</div>
         )}
       </div>
-    </>
+    </div>
   )
 }
