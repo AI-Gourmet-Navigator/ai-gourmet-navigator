@@ -15,7 +15,7 @@ export const metadata = {
   title: 'AI Gourmet Navigator',
   description:
     'AI Gourmet Navigator that allows users to search for restaurants based on their current mood.',
-  icons: [{ rel: 'icon', url: '/favicon.ico' }],
+  icons: [{ rel: 'icon', url: 'ai-gourmet-navigator/ico' }],
 }
 
 export default function RootLayout({
