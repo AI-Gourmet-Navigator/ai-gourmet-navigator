@@ -15,8 +15,8 @@
     <div><a href="#Built-With">Built With</a></div>
     <div><a href="#Getting-Started">Getting Started</a></div>
     <div><a href="#Main-Features">Main Features</a></div>
-    <div><a href="#How we organize restaurant data">How we organize restaurant data</a></div>
-    <div><a href="#Database Diagram">Database Diagram</a></div>
+    <div><a href="#how-we-organize-restaurant-data">How we organize restaurant data</a></div>
+    <div><a href="#database-diagram">Database Diagram</a></div>
 </details>
 
 ## About The Project
@@ -67,7 +67,7 @@
 You are able to start the app by typing the following commands in the command line:
 
 ```bash
-git clone https://github.com/yuki-o1o5/ai-gourmet-navigator-dest.git
+git clone https://github.com/AI-Gourmet-Navigator/ai-gourmet-navigator.git
 npm install
 docker-compose up
 ```

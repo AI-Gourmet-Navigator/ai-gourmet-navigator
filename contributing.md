@@ -1,12 +1,11 @@
 ## For development
 
-
 ### Getting Started
 
 #### Clone the repository
 
 ```bash
-git clone https://github.com/yuki-o1o5/ai-gourmet-navigator-dest.git
+git clone https://github.com/AI-Gourmet-Navigator/ai-gourmet-navigator.git
 npm install
 ```
 
