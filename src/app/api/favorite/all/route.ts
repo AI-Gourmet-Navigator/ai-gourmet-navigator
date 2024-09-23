@@ -10,7 +10,7 @@ export async function GET(req: Request) {
 
     // Validate the extracted data
     if (!userId) {
-      return new Response('Missing userId', { status: 400 })
+      return Response.json({ message: 'Missing userId', status: 400 })
     }
 
     // Query the database to get all favorites for the user
@@ -36,14 +36,11 @@ export async function GET(req: Request) {
     }
 
     // Return the favorites as a JSON response
-    return new Response(JSON.stringify(favRestaurants), {
+    return Response.json(favRestaurants, {
       status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
     })
   } catch (error) {
     console.error('Error fetching favorites:', error)
-    return new Response('Internal Server Error', { status: 500 })
+    return Response.json({ message: 'Internal Server Error', status: 500 })
   }
 }

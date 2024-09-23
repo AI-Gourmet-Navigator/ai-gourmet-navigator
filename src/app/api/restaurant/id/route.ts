@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     if (!placeId) {
       return Response.json({
         status: 400,
-        message: 'Missing placeId or userId',
+        message: 'Missing placeId',
       })
     }
     const details = await fetchPlaceDetails(placeId)
