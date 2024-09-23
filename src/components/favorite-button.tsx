@@ -43,7 +43,7 @@ export function FavoriteButton({
     (state) => !state,
   )
   return (
-    <form action={formAction} ref={formRef}>
+    <form action={formAction} ref={formRef} data-testid="favorite">
       <input type="hidden" value={placeId} name="placeId" />
       <Button variant="ghost" type="submit" onClick={handleClick}>
         {optimisticIsFavorite ? <HeartFilledIcon /> : <HeartIcon />}

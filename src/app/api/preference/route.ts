@@ -69,10 +69,13 @@ export async function POST(req: Request) {
     try {
       embedData = (await getEmbedData([text])) as number[][]
       if (!embedData?.[0])
-        return new Response('Failed to get embed data', { status: 500 })
+        return Response.json({
+          message: 'Failed to get embed data',
+          status: 500,
+        })
     } catch (error) {
       console.error('Error fetching embed data:', error)
-      return new Response('Failed to get embed data', { status: 500 })
+      return Response.json({ message: 'Failed to get embed data', status: 500 })
     }
 
     let namespaces: string[]
@@ -80,7 +83,7 @@ export async function POST(req: Request) {
       namespaces = await getAllNamespaces()
     } catch (error) {
       console.error('Error fetching namespaces:', error)
-      return new Response('Failed to get namespaces', { status: 500 })
+      return Response.json({ message: 'Failed to get namespaces', status: 500 })
     }
 
     let matches: ScoredPineconeRecord<RecordMetadata>[] = []
@@ -93,7 +96,8 @@ export async function POST(req: Request) {
           `Error fetching similarity search for namespace ${namespace}:`,
           error,
         )
-        return new Response('Failed to perform similarity search', {
+        return Response.json({
+          message: 'Failed to perform similarity search',
           status: 500,
         })
       }
@@ -116,7 +120,10 @@ export async function POST(req: Request) {
       try {
         const details = await fetchPlaceDetails(match.id)
         if (!details || details?.status !== 'OK') {
-          return new Response('Failed to get restaurant data', { status: 500 })
+          return Response.json({
+            message: 'Failed to get restaurant data',
+            status: 500,
+          })
         }
         const {
           place_id,
@@ -140,13 +147,16 @@ export async function POST(req: Request) {
         })
       } catch (error) {
         console.error(`Error fetching place details for ID ${match.id}:`, error)
-        return new Response('Failed to get restaurant data', { status: 500 })
+        return Response.json({
+          message: 'Failed to get restaurant data',
+          status: 500,
+        })
       }
     }
 
     return Response.json(results, { status: 200 })
   } catch (error) {
     console.error('Unexpected error:', error)
-    return new Response('Internal Server Error', { status: 500 })
+    return Response.json({ message: 'Internal Server Error', status: 500 })
   }
 }
