@@ -34,7 +34,7 @@ export function Chat() {
           />
         ))}
       </div>
-      <div className="absolute bottom-0 left-1/2 mb-4 w-full -translate-x-1/2 transform">
+      <div className="absolute bottom-0 left-1/2 mb-4 w-full -translate-x-1/2 transform px-4">
         {showInput && (
           <ChatInput
             onSubmit={handleSubmit}

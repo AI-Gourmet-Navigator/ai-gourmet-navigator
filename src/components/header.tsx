@@ -18,13 +18,24 @@ import {
 import { HamburgerMenuIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
 import { useTheme } from 'next-themes'
 import { Button } from './ui/button'
+import Image from 'next/image'
 
 export const Header = () => {
   const { data: session } = useSession()
   const { setTheme } = useTheme()
   return (
     <header className="sticky top-0 z-10 mx-auto flex h-12 max-w-7xl items-center justify-between bg-[hsl(var(--background))] px-4 text-[hsl(var(--foreground))] dark:bg-[hsl(var(--background))] dark:text-[hsl(var(--foreground))] lg:px-8">
-      <Link href="/">AI Gourmet Navigator</Link>
+      <Link href="/" className="flex items-center gap-2">
+        <Image
+          src="/icons/ai-gourmet-navigator-logo.png"
+          alt="AI Gourmet Navigator"
+          width={30}
+          height={30}
+          className="rounded-full"
+        />
+        <p>AI Gourmet Navigator</p>
+      </Link>
+
       <div className="flex items-center">
         <ul className="mr-6 hidden gap-6 sm:flex">
           <li>
