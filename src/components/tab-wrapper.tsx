@@ -25,6 +25,7 @@ export function Wrapper() {
         setRecommendedRestaurantList(data)
       } catch (error) {
         console.error('Failed to fetch preferences:', error)
+        throw Error('Failed to fetch preferences')
       } finally {
         setLoading(false)
       }

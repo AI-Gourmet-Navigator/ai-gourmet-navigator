@@ -6,8 +6,11 @@ import type { ModifiedRestaurant } from '../api/preference/route'
 export default async function Favorites() {
   const session = await getServerAuthSession()
   const data = await fetch(
-    `${env.APP_URL}/api/favorite/all?userId=${session?.user.id}`,
+    `${env.APP_URL}/api/favorite/all${session?.user.id ? `?userId=${session?.user.id}` : ''}`,
   )
+  if (data.status !== 200) {
+    throw Error('favorite fetch failed')
+  }
   const favorites = (await data.json()) as ModifiedRestaurant[]
   return (
     <>

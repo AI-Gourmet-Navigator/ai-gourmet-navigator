@@ -12,9 +12,14 @@ export default async function RestaurantDetail({
   const session = await getServerAuthSession()
 
   const response = await fetch(
-    `${env.APP_URL}/api/restaurant/id?placeId=${placeId}&userId=${session?.user.id}`,
+    `${env.APP_URL}/api/restaurant/id?placeId=${placeId}${session?.user.id ? `&userId=${session?.user.id}` : ''}`,
     { cache: 'no-store' },
   )
+
+  if (response.status !== 200) {
+    console.error(response)
+    throw Error('detailed fetch failed')
+  }
 
   const data = (await response.json()) as DetailedRestaurant
 
