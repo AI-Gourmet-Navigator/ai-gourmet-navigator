@@ -11,9 +11,12 @@
 <details align="right">
   <summary>Table of Contents</summary>
     <div><a href="#About-The-Project">About The Project</a></div>
+        <div><a href="#Team Members">Team members</a></div>
     <div><a href="#Built-With">Built With</a></div>
     <div><a href="#Getting-Started">Getting Started</a></div>
     <div><a href="#Main-Features">Main Features</a></div>
+    <div><a href="#How we organize restaurant data">How we organize restaurant data</a></div>
+    <div><a href="#Database Diagram">Database Diagram</a></div>
 </details>
 
 ## About The Project
@@ -93,8 +96,10 @@ docker-compose up
 
 <br>
 
-### 4. Using Storybook & Chromatic for Visual Testing
+## How we organize restaurant data
 
-- Check and test visualizations using Storybook & Chromatic.
+[Link->](https://lucid.app/lucidchart/087ca5c9-1629-4b6e-8576-df8ea3e091ff/edit?viewport_loc=367%2C-258%2C2549%2C2018%2C0_0&invitationId=inv_8a516a45-1b5b-4b6e-803d-62c26a00f08e)
 
-<br>
+## Database Diagram
+
+[Link->](https://lucid.app/lucidchart/3dc993e6-ccfc-438d-ac1e-b5d93173897f/edit?invitationId=inv_ba5913d0-d451-4522-91c8-910afa81afa8&page=0_0#)
