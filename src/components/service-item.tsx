@@ -52,10 +52,19 @@ export function ServiceItem({
         .filter((icon) => shouldDisplayIcon(icon.name))
         .map((icon) => (
           <div key={icon.name} className="flex items-center">
-            <Image src={icon.imageUrl} width={25} height={25} alt={icon.name} />
+            <div className="rounded-full bg-white p-1">
+              <Image
+                src={icon.imageUrl}
+                width={25}
+                height={25}
+                alt={icon.name}
+              />
+            </div>
             <p className="ml-2 text-sm leading-7">
               {icon.name === 'Price level'
-                ? `Price level: ${price_level}`
+                ? price_level !== undefined
+                  ? `Price level: ${price_level}`
+                  : 'Price level: -'
                 : icon.name}
             </p>
           </div>
