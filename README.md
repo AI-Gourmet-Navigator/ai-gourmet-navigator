@@ -98,8 +98,8 @@ docker-compose up
 
 ## How we organize restaurant data
 
-[Link->](https://lucid.app/lucidchart/087ca5c9-1629-4b6e-8576-df8ea3e091ff/edit?viewport_loc=367%2C-258%2C2549%2C2018%2C0_0&invitationId=inv_8a516a45-1b5b-4b6e-803d-62c26a00f08e)
+  <img src="public/others/AI-Gourmet-Navigator-Data-strategy.png" alt="Data strategy" width="700" >
 
 ## Database Diagram
 
-[Link->](https://lucid.app/lucidchart/3dc993e6-ccfc-438d-ac1e-b5d93173897f/edit?invitationId=inv_ba5913d0-d451-4522-91c8-910afa81afa8&page=0_0#)
+  <img src="public/others/AI-Gourmet-Navigator-DB-diagram.png" alt="Data strategy" width="700" >
