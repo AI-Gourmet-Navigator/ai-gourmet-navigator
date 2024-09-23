@@ -4,13 +4,28 @@ import { env } from '@/env'
 import { center } from '../app/result/constants'
 import { MarkerWithInfoWindow } from './marker-with-infowindow'
 import type { ModifiedRestaurant } from '@/app/api/preference/route'
+import { useEffect, useState } from 'react'
 
 interface Map {
   restaurants: ModifiedRestaurant[]
 }
 
 export function Map({ restaurants }: Map) {
-  // Need to add isFavorite later
+  const [openInfoWindowId, setOpenInfoWindowId] = useState<string | null>(null)
+
+  const handleCloseInfoWindow = () => {
+    if (openInfoWindowId !== null) {
+      setOpenInfoWindowId(null)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('click', handleCloseInfoWindow)
+    return () => {
+      window.removeEventListener('click', handleCloseInfoWindow)
+    }
+  }, [])
+
   return (
     <div
       style={{
@@ -27,6 +42,7 @@ export function Map({ restaurants }: Map) {
           defaultZoom={13}
           gestureHandling={'greedy'}
           disableDefaultUI={true}
+          onClick={handleCloseInfoWindow}
         >
           {restaurants.map(
             ({
@@ -53,6 +69,8 @@ export function Map({ restaurants }: Map) {
                   ratingsTotal={ratingsTotal}
                   isFavorite={isFavorite}
                   isMap
+                  handleMarkerClick={() => setOpenInfoWindowId(id)}
+                  isCardOpen={openInfoWindowId === id}
                 />
               )
             },
