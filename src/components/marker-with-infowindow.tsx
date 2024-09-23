@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   AdvancedMarker,
   InfoWindow,
+  Pin,
   useAdvancedMarkerRef,
 } from '@vis.gl/react-google-maps'
 
@@ -19,32 +20,37 @@ interface MarkerWithInfoWindowProps {
   ratingsTotal: number
   isFavorite?: boolean
   isMap: boolean
+  handleMarkerClick: () => void
+  isCardOpen: boolean
 }
 
 export function MarkerWithInfoWindow({
   location,
+  handleMarkerClick,
+  isCardOpen,
   ...rest
 }: MarkerWithInfoWindowProps) {
-  const [infoWindowOpen, setInfoWindowOpen] = useState(false)
+  // const [infoWindowOpen, setInfoWindowOpen] = useState(false)
   const [markerRef, marker] = useAdvancedMarkerRef()
   return (
     <>
       <AdvancedMarker
         ref={markerRef}
-        onClick={() => setInfoWindowOpen(true)}
         position={location}
-      />
-      {infoWindowOpen && (
-        <InfoWindow
-          className="gm-card"
-          style={{ padding: 0 }}
-          anchor={marker}
-          maxWidth={200}
-          onCloseClick={() => setInfoWindowOpen(false)}
-        >
-          <InfoWindowCard {...rest} />
-        </InfoWindow>
-      )}
+        onClick={handleMarkerClick}
+      >
+        <Pin background={'#e11c48'} glyphColor={'#fff'} borderColor={'#fff'} />
+        {isCardOpen && (
+          <InfoWindow
+            className="gm-card"
+            style={{ padding: 0 }}
+            anchor={marker}
+            maxWidth={200}
+          >
+            <InfoWindowCard {...rest} />
+          </InfoWindow>
+        )}
+      </AdvancedMarker>
     </>
   )
 }
