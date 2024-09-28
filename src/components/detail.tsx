@@ -46,7 +46,7 @@ export function Detail({ restaurant }: DetailProps) {
   } = restaurant
 
   const topThreeReviews = reviews?.slice(0, 3)
-  const scrollableReviews: Review[] = Array.from(reviews)
+  const scrollableReviews: Review[] = Array.from(reviews || [])
 
   return (
     <>

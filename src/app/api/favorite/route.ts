@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   try {
     const session = await getServerAuthSession()
     if (session === null) {
-      return Response.json({ message: 'Invalid data update!', status: 400 })
+      return new Response('Invalid data update!', { status: 400 })
     }
 
     // Extract placeId from the request body
@@ -14,8 +14,7 @@ export async function POST(req: Request) {
 
     // Validate the extracted data
     if (!placeId || !userId) {
-      return Response.json({
-        message: 'Missing placeId or userId',
+      return new Response('Missing placeId or userId', {
         status: 400,
       })
     }
@@ -35,12 +34,9 @@ export async function POST(req: Request) {
           id: existingFavorite.id,
         },
       })
-      return Response.json(
-        { message: 'Favorite removed' },
-        {
-          status: 200,
-        },
-      )
+      return new Response('Favorite removed', {
+        status: 200,
+      })
     } else {
       // If it doesn't exist, add it
       const newFavorite = await db.favorite.create({
@@ -49,10 +45,10 @@ export async function POST(req: Request) {
           userId,
         },
       })
-      return Response.json(newFavorite, { status: 201 })
+      return Response.json(newFavorite)
     }
   } catch (error) {
     console.error('Error toggling favorite:', error)
-    return Response.json({ message: 'Internal Server Error', status: 500 })
+    return new Response('Internal Server Error', { status: 500 })
   }
 }

@@ -83,7 +83,7 @@ export async function POST(req: Request) {
       namespaces = await getAllNamespaces()
     } catch (error) {
       console.error('Error fetching namespaces:', error)
-      return Response.json({ message: 'Failed to get namespaces', status: 500 })
+      return new Response('Failed to get namespaces', { status: 500 })
     }
 
     let matches: ScoredPineconeRecord<RecordMetadata>[] = []
@@ -96,8 +96,7 @@ export async function POST(req: Request) {
           `Error fetching similarity search for namespace ${namespace}:`,
           error,
         )
-        return Response.json({
-          message: 'Failed to perform similarity search',
+        return new Response('Failed to perform similarity search', {
           status: 500,
         })
       }
@@ -147,16 +146,15 @@ export async function POST(req: Request) {
         })
       } catch (error) {
         console.error(`Error fetching place details for ID ${match.id}:`, error)
-        return Response.json({
-          message: 'Failed to get restaurant data',
+        return new Response('Failed to get restaurant data', {
           status: 500,
         })
       }
     }
 
-    return Response.json(results, { status: 200 })
+    return Response.json(results)
   } catch (error) {
     console.error('Unexpected error:', error)
-    return Response.json({ message: 'Internal Server Error', status: 500 })
+    return new Response('Internal Server Error', { status: 500 })
   }
 }
