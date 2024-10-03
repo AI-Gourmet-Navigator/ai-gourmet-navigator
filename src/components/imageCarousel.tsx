@@ -45,14 +45,10 @@ export function ImageCarousel({ photos }: ImageCarousel) {
         </div>
       ) : photos.length === 1 ? (
         <div className="mb-8 flex items-center justify-center">
-          <Image
-            src={photos[0] ?? '/default-image.png'}
+          <img
+            src={`/api/image?reference=${photos[0]}`}
             alt={`${photos[0]}`}
             className="h-[320px] w-[640px] object-cover"
-            sizes="100vw"
-            width={0}
-            height={0}
-            priority
           />
         </div>
       ) : (
@@ -71,13 +67,10 @@ export function ImageCarousel({ photos }: ImageCarousel) {
                 >
                   <Card>
                     <div className="flex items-center justify-center">
-                      <Image
-                        src={photo}
+                      <img
+                        src={`/api/image?reference=${photo}`}
                         alt={`${photo}-${index}`}
                         className="h-[320px] w-[640px] object-cover"
-                        sizes="100vw"
-                        width={0}
-                        height={0}
                       />
                     </div>
                   </Card>
