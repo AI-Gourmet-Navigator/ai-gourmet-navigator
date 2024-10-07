@@ -1,7 +1,6 @@
 import { Card, CardContent, CardTitle, CardDescription } from './ui/card'
 import { FavoriteButton } from './favorite-button'
 import { useSession } from 'next-auth/react'
-import Image from 'next/image'
 import { StarIcon } from '@radix-ui/react-icons'
 
 import {
@@ -41,14 +40,10 @@ export function InfoWindowCard({
           {imageUrls.slice(0, 20).map((url) => (
             <CarouselItem key={url}>
               <div className="flex items-center justify-center">
-                <Image
+                <img
                   className={`w-[384px] rounded-t-lg object-cover pb-4 ${isMap ? 'h-[230px]' : 'h-[320px] sm:h-[320px] md:h-[260px]'}`}
-                  src={url}
-                  width={0}
-                  height={0}
-                  sizes="100vh"
+                  src={`/api/image?reference=${url}`}
                   alt={`${name}-image`}
-                  priority
                 />
               </div>
             </CarouselItem>
