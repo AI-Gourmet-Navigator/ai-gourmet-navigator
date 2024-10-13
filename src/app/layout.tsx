@@ -35,7 +35,7 @@ export default function RootLayout({
           >
             <Header />
             <main
-              style={{ minHeight: 'calc(100vh - 88px)' }}
+              style={{ minHeight: 'calc(100vh - 120px)' }}
               className="mx-auto max-w-7xl"
             >
               {children}
