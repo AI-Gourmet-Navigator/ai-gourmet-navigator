@@ -62,18 +62,6 @@
 
 <br/>
 
-## Getting Started
-
-You are able to start the app by typing the following commands in the command line:
-
-```bash
-git clone https://github.com/AI-Gourmet-Navigator/ai-gourmet-navigator.git
-npm install
-docker-compose up
-```
-
-<br/>
-
 ## Main Features
 
 ### 1. Using LLM (Cohere API) for Making Summaries and Converting Embed Data
