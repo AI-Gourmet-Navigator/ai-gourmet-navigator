@@ -1,9 +1,11 @@
 import { checkIsFavorite } from '@/lib/checkIsFavorite'
+import { getImageUrls } from '@/lib/get-image-urls'
 import { fetchPlaceDetails } from '@/lib/google-map'
 import type { PlaceDetails } from '@/lib/google-map'
 
-export interface DetailedRestaurant extends PlaceDetails {
+export interface DetailedRestaurant extends Omit<PlaceDetails, 'photos'> {
   isFavorite?: boolean
+  photos: string[]
 }
 
 export async function GET(req: Request) {
@@ -32,6 +34,7 @@ export async function GET(req: Request) {
         isFavorite: userId
           ? await checkIsFavorite({ placeId, userId })
           : undefined,
+        photos: getImageUrls(details.result.photos),
       },
       { status: 200 },
     )

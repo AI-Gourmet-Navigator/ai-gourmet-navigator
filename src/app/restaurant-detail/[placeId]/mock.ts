@@ -84,14 +84,7 @@ export const MOCK_RESTAURANT_DETAILS = {
     ],
     weekday_text: ['Monday: 8:00 AM – 10:00 PM', 'Tuesday: 8:00 AM – 10:00 PM'],
   },
-  photos: [
-    {
-      height: 1080,
-      html_attributions: ['<a href="https://example.com">Example</a>'],
-      photo_reference: 'CmRaAAAA...',
-      width: 1920,
-    },
-  ],
+  photos: ['https://loremflickr.com/320/240'],
   place_id: 'ChIJD7fiBh9u5kcRYJSMaMOCCwQ',
   plus_code: {
     compound_code: '7Q6X+FF Vancouver, British Columbia, Canada',
@@ -217,14 +210,7 @@ export const MOCK_RESTAURANT_DETAILS_WITH_IS_FAVORITE = {
     ],
     weekday_text: ['Monday: 8:00 AM – 10:00 PM', 'Tuesday: 8:00 AM – 10:00 PM'],
   },
-  photos: [
-    {
-      height: 1080,
-      html_attributions: ['<a href="https://example.com">Example</a>'],
-      photo_reference: 'CmRaAAAA...',
-      width: 1920,
-    },
-  ],
+  photos: ['https://loremflickr.com/320/240'],
   place_id: 'ChIJD7fiBh9u5kcRYJSMaMOCCwQ',
   plus_code: {
     compound_code: '7Q6X+FF Vancouver, British Columbia, Canada',
