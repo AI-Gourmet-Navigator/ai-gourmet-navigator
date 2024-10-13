@@ -19,8 +19,10 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.4.0",
+    "@chromatic-com/playwright": "^0.9.0",
     "@fontsource/hind": "^5.0.13",
     "@pinecone-database/pinecone": "^2.2.2",
+    "@playwright/test": "^1.48.0",
     "@prisma/client": "^5.10.2",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
