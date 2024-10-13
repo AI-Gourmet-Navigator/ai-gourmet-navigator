@@ -13,7 +13,6 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { ServiceItem } from '@/components/service-item'
 import type { Review } from '@/lib/google-map'
-import { getImageUrls } from '@/lib/get-image-urls'
 import type { DetailedRestaurant } from '@/app/api/restaurant/id/route'
 import { FavoriteButton } from './favorite-button'
 import { useSession } from 'next-auth/react'
@@ -51,7 +50,7 @@ export function Detail({ restaurant }: DetailProps) {
   return (
     <>
       <div className="flex w-full flex-col items-center">
-        <ImageCarousel photos={getImageUrls(photos)} />
+        <ImageCarousel photos={photos} />
       </div>
       <div className="px-3 pb-8 sm:px-6">
         <div className="flex justify-between">
