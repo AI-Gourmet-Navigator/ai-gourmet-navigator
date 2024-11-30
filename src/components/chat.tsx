@@ -23,7 +23,7 @@ export function Chat() {
   }, [chats])
 
   return (
-    <div>
+    <>
       <div className="pb-12" style={{ minHeight: 'calc(100vh - 124px)' }}>
         {chats.map((chat, index) => (
           <ChatContainer
@@ -33,6 +33,7 @@ export function Chat() {
             key={index}
           />
         ))}
+        <div ref={messagesEndRef} />
       </div>
       <div className="absolute bottom-0 left-1/2 mb-4 w-full -translate-x-1/2 transform px-4">
         {showInput && (
@@ -47,9 +48,11 @@ export function Chat() {
           )}
         </div>
         {errorMessage && (
-          <div className="mt-2 flex w-full justify-center">{errorMessage}</div>
+          <div className="ext-blue-200 mt-2 flex w-full  text-sm text-primary sm:justify-center">
+            {errorMessage}
+          </div>
         )}
       </div>
-    </div>
+    </>
   )
 }

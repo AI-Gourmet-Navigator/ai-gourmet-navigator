@@ -43,7 +43,7 @@ export function ChatInput({ onSubmit, currentQuestionType }: ChatInputProps) {
           handleSubmit(event)
           event.preventDefault()
         }}
-        className="flex w-full items-end gap-1.5 sm:gap-4"
+        className="flex w-full items-end gap-1.5 bg-background sm:gap-4"
       >
         <Textarea
           ref={textareaRef}
